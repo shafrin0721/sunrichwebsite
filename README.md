@@ -1,23 +1,33 @@
-# Sunrich React Ecommerce
+# Sun Rich Paradise
 
-React/Vite implementation of the supplied Sunrich ecommerce page references.
+A multi-page React storefront built with Next.js. The site includes the home page, a product catalog and product details, wishlist and quote request flows, account screens, company information, and contact details.
 
-## Run
+## Run locally
+
 ```bash
 npm install
 npm run dev
 ```
 
-Routes included:
-- `/` Home
-- `/products` Products + quick view
-- `/products/1` Product detail
-- `/wishlist` Wishlist
-- `/billing` Billing / checkout
-- `/login` Login
-- `/create-account` Create account
-- `/contact` Contact us
-- `/about` About us
-- any unknown route -> 404
+Open `http://localhost:3000`.
 
-The supplied reference screenshots are retained in `public/assets/` for reference, while reusable crops from the home design are used for the product/hero imagery.
+## Production
+
+```bash
+npm run build
+npm start
+```
+
+## Pages
+
+- `/` — Home
+- `/products` — Product catalog with search, categories, sorting, and quick view
+- `/products/[id]` — Product details
+- `/wishlist` — Saved products
+- `/billing` — Quote request
+- `/login` — Sign in
+- `/create-account` — Create account
+- `/contact` — Contact Sun Rich Paradise
+- `/about` — Company information
+
+Product images and other static assets are served from `public/`.
