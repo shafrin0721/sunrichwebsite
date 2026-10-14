@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useMemo, useState} from "react";
+import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
 import {
@@ -19,33 +19,29 @@ function NavLink({to, children}) {
   return <NextLink href={to} className={active?"active":""}>{children}</NextLink>;
 }
 
-const PRODUCTS = [
-  {id:1,name:"Organic Virgin Coconut Oil",image:"catalog-organic-virgin-coconut-oil.jpeg",category:"Coconut Products",description:"Cold-pressed, unrefined organic virgin coconut oil for food, beverage, personal-care and food-processing applications. Available in bottles, glass jars and bulk."},
-  {id:2,name:"Organic Coconut Milk Powder",image:"catalog-organic-coconut-milk-powder.jpeg",category:"Coconut Products",description:"Made from premium-grade organic coconuts grown in Sri Lanka. Mix into beverages, smoothies, desserts, soups and everyday recipes."},
-  {id:3,name:"Organic Coconut Milk",image:"catalog-organic-coconut-milk.jpeg",category:"Coconut Products",description:"Coconut milk is pressed from the white meat of mature coconuts and used in curries, soups, desserts and other dishes."},
-  {id:4,name:"Organic Coconut Flour",image:"catalog-organic-coconut-flour.jpeg",category:"Coconut Products",description:"A fiber-enriched flour made from coconut oil cake. A grain-free alternative for baking and cooking."},
-  {id:5,name:"Organic Desiccated Coconut",image:"catalog-organic-desiccated-coconut.jpeg",category:"Coconut Products",description:"Shredded, dried and unsweetened mature coconut meat for confectionery, bakery, food service and food processing."},
-  {id:6,name:"Organic Creamed Coconut",image:"catalog-organic-creamed-coconut.jpeg",category:"Coconut Products",description:"A concentrated coconut product made by grinding dehydrated fresh coconut meat into a smooth paste."},
-  {id:7,name:"Organic Coconut Cream",image:"catalog-organic-coconut-cream.jpeg",category:"Coconut Products",description:"A smooth, creamy extract of fresh mature coconut meat for curries, desserts, beverages, sauces and bakery products."},
-  {id:8,name:"Organic Coconut Chips",image:"catalog-organic-coconut-chips.jpeg",category:"Coconut Products",description:"Desiccated coconut chips for snacking or use in granola, baking, desserts and other recipes."},
-  {id:9,name:"Organic Coconut Water",image:"official-organic-coconut-water.png",category:"Coconut Products",description:"A refreshing coconut beverage with naturally occurring sugars, vitamins, minerals and amino acids."},
-  {id:10,name:"Organic Coconut Sugar",image:"catalog-organic-coconut-sugar.jpeg",category:"Coconut Products",description:"A plant-based sweetener made from the sap of the coconut palm."},
-  {id:11,name:"Organic Coconut Condensed Milk",image:"catalog-organic-coconut-condensed-milk.jpeg",category:"Coconut Products",description:"A sweetened, non-dairy coconut alternative for baking, desserts and beverages."},
-  {id:12,name:"Organic King Coconut Water",image:"catalog-organic-king-coconut-water.jpeg",category:"Coconut Products",description:"Water from organic King Coconuts, a golden-orange variety native to Sri Lanka. Available in several flavours."},
-  {id:13,name:"Organic Virgin King Coconut Oil",image:"catalog-organic-virgin-king-coconut-oil.jpeg",category:"Coconut Products",description:"Virgin oil made from King Coconuts, a distinctive golden-orange variety native to Sri Lanka."},
-  {id:14,name:"Organic Dehydrated Products",image:"official-dehydrated-products.png",category:"Dehydrated Products",description:"Unsweetened dried fruit with no added sulfites, preservatives or other additives."},
-  {id:15,name:"Sun Rich Paradise Jack Mackerel, 425g",image:"official-jack-mackerel.png",category:"Canned Fish & Tuna",description:"Sri Lankan-made canned jack mackerel sourced from local fishermen and manufactured under SLS standards."},
-  {id:16,name:"Shredded Tuna with Sunflower Oil, 185g",image:"official-shredded-tuna.png",category:"Canned Fish & Tuna",description:"Sri Lankan shredded tuna packed in sunflower oil and manufactured under SLS standards."},
+export const PRODUCTS = [
+  {id:1,name:"Virgin Coconut Oil",image:"catalog-organic-virgin-coconut-oil.jpeg",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"Cold-pressed and unrefined virgin coconut oil. The catalog lists PET and HDPE bottles, glass jars, and bulk packaging, with a shelf life of up to two years.",specifications:["Processing: cold-pressed and unrefined","Packaging: PET/HDPE bottles, glass jars, and bulk","Shelf life: up to 2 years"]},
+  {id:2,name:"Coconut Flour",image:"catalog-organic-coconut-flour.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut flour made from coconut oil cake. The catalog lists retail packs and larger food-service and bulk sizes.",specifications:["Pack sizes: 200g, 375g, 454g, 10kg, and 25kg, plus bulk","Shelf life: 12 months"]},
+  {id:3,name:"Coconut Chips",image:"catalog-organic-coconut-chips.jpeg",category:"Coconut Snacks",categories:["Coconut Foods","Healthy Snacks"],description:"Coconut chips available in natural and toasted varieties, as well as chocolate, caramel, and sugar flavours.",specifications:["Varieties: natural and toasted","Flavours: chocolate, caramel, and sugar"]},
+  {id:4,name:"Desiccated Coconut",image:"catalog-organic-desiccated-coconut.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Desiccated coconut from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:5,name:"Coconut Milk Powder",image:"catalog-organic-coconut-milk-powder.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut milk powder from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:6,name:"Coconut Milk",image:"catalog-organic-coconut-milk.jpeg",category:"Coconut Foods",categories:["Coconut Foods","Beverages"],description:"A dairy-free coconut milk used in curries, soups, beverages, sweets, and desserts. The catalog specifies 400ml cans and a 24-month shelf life.",specifications:["Pack size: 400ml can","Shelf life: 24 months"]},
+  {id:7,name:"Coconut Cream",image:"catalog-organic-coconut-cream.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut cream from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:8,name:"Coconut Sugar",image:"catalog-organic-coconut-sugar.jpeg",category:"Natural Sweeteners",categories:["Natural Sweeteners"],description:"Coconut sugar from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:9,name:"King Coconut Water",image:"catalog-organic-king-coconut-water.jpeg",category:"Coconut Beverages",categories:["Beverages","Premium Collection"],description:"Water from Sri Lankan King Coconut, a golden-orange variety found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
+  {id:10,name:"Creamed Coconut",image:"catalog-organic-creamed-coconut.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Unsweetened dried coconut meat ground into a semi-solid paste. The catalog lists bulk pails in 10kg and 18kg sizes.",specifications:["Packaging: bulk pails, 10kg and 18kg"]},
+  {id:11,name:"Condense Milk",image:"catalog-organic-coconut-condensed-milk.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:12,name:"King Coconut Oil",image:"catalog-organic-virgin-king-coconut-oil.jpeg",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
 ];
 
-const PRODUCT_CATEGORIES=["All Products","Coconut Products","Dehydrated Products","Canned Fish & Tuna"];
+const PRODUCT_CATEGORIES=["All Products","Organic Coconut Oils","Coconut Foods","Healthy Snacks","Natural Sweeteners","Beverages","Premium Collection"];
 
 const AppContext=createContext(null);
 function useApp(){return useContext(AppContext)}
 
 function AppProvider({children}){
-  const [cart,setCart]=useState([]);
-  const [wishlist,setWishlist]=useState([3]);
+  const [cart,setCart]=useState([{...PRODUCTS[0],qty:5},{...PRODUCTS[6],qty:1}]);
+  const [wishlist,setWishlist]=useState([11,3,6]);
   const [cartOpen,setCartOpen]=useState(false);
   const [newsletterOpen,setNewsletterOpen]=useState(false);
   const addToCart=(product,qty=1)=>setCart(c=>{
@@ -68,26 +64,26 @@ function SiteOverlays() {
   return <>{newsletterOpen&&<Newsletter close={closeNewsletter}/>}<CartOverlay/><FloatingCart/></>
 }
 
-function Header(){
+export function Header(){
   const {cart,wishlist,openCart}=useApp();
   const [mobile,setMobile]=useState(false);
   return <header>
-    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span>Sun Rich Paradise</span></div>
+    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale">Eng <ChevronDown size={11}/>　 LKR <ChevronDown size={11}/></span></div>
     <div className="navwrap">
       <button className="mobile-menu" onClick={()=>setMobile(!mobile)}><Menu/></button>
-      <Link className="logo" to="/" aria-label="Sun Rich Paradise home"><img className="brand-logo" src="/Sun-Rich-Paradise%20logo.png" alt="Sun Rich Paradise"/></Link>
       <nav className={mobile?"mobile-open":""}>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Home <ChevronDown size={13}/></NavLink>
         <div className="nav-dropdown"><NavLink to="/products">Products <ChevronDown size={13}/></NavLink><div className="products-menu">{PRODUCT_CATEGORIES.map(x=><Link key={x} role="menuitem" to={x==="All Products"?"/products":`/products?category=${encodeURIComponent(x)}`} onClick={()=>setMobile(false)}>{x}</Link>)}</div></div>
-        <NavLink to="/about">Quality</NavLink>
+        <NavLink to="/about">Certificates</NavLink>
         <NavLink to="/about">About Us</NavLink>
         <NavLink to="/contact">Contact us</NavLink>
       </nav>
+      <Link className="logo" to="/" aria-label="Sun Rich home"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> <span>Sunrich</span></Link>
       <div className="nav-actions">
-        <a className="phone" href="tel:+94117090222"><Phone size={18}/> +94 11 709 0222</a>
+        <a className="phone" href="tel:+94117090222"><Phone size={22}/> +94 11 709 0222</a>
         <Link to="/products" aria-label="Search products"><Search/></Link>
         <Link to="/wishlist" className="icon-badge"><Heart/><em>{wishlist.length}</em></Link>
-        <button onClick={openCart} className="icon-badge"><ShoppingBag/><em>{cart.reduce((a,x)=>a+x.qty,0)}</em></button>
+        <button onClick={openCart} className="icon-badge"><ShoppingBag/><em>{cart.length}</em></button>
         <Link to="/login"><UserRound/></Link>
       </div>
     </div>
@@ -97,14 +93,14 @@ function Header(){
 function Footer(){
   return <footer>
     <div className="footer-top">
-      <div><Link className="footer-logo" to="/" aria-label="Sun Rich Paradise home"><img className="brand-logo" src="/Sun-Rich-Paradise%20logo.png" alt="Sun Rich Paradise"/></Link><p>Organic coconut products from Sri Lanka.<br/>Manufactured and exported by<br/>Abey Marine (Pvt) Ltd.</p>
+      <div><Link className="footer-logo" to="/" aria-label="Sun Rich home"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> <b>SUN RICH</b></Link><p>Excellence in organic agriculture.<br/>Bringing the finest Sri Lankan<br/>produce to the world stage<br/>through sustainable practices.</p>
         <div className="socials"><span><Linkedin/></span><span><Instagram/></span><span><Facebook/></span></div>
       </div>
-      <div><h4>Product Line</h4><Link to="/products">Coconut Products</Link><Link to="/products">Dehydrated Products</Link><Link to="/products">Canned Fish &amp; Tuna</Link><a href="https://sunrich.org/wp-content/uploads/2022/02/Sunrich_Product-Catoloug.pdf" target="_blank" rel="noreferrer">Product Catalogue</a></div>
-      <div><h4>Company</h4><Link to="/about">About Sun Rich</Link><Link to="/products">Products</Link><Link to="/contact">Private Label &amp; Bulk Orders</Link><a href="https://sunrich.org/" target="_blank" rel="noreferrer">Official Website</a></div>
-      <div><h4>Contact</h4><p>Negombo, Sri Lanka</p><p><a href="tel:+94117090222">+94 11 709 0222</a></p><p><a href="tel:+94707779787">+94 70 777 9787</a></p><p><a href="mailto:info@sunrich.org">info@sunrich.org</a></p></div>
+      <div><h4>Product Line</h4><Link to="/products">Organic Spices</Link><Link to="/products">Ceylon Tea</Link><Link to="/products">Coconut Products</Link><Link to="/products">Essential Oils</Link><Link to="/products">Fresh Produce</Link></div>
+      <div><h4>Company</h4><Link to="/about">Our Story</Link><Link to="/products">Products</Link><Link to="/about">Certifications</Link><Link to="/contact">Contact</Link></div>
+      <div><h4>Headquarters</h4><p>Negombo, Sri Lanka</p><p><a href="tel:+94117090222">+94 11 709 0222</a></p><p><a href="tel:+94707779787">+94 70 777 9787</a></p><p><a href="mailto:info@sunrich.org">info@sunrich.org</a></p></div>
     </div>
-    <div className="footer-bottom"><span>© 2026 Sun Rich Paradise · Abey Marine (Pvt) Ltd.</span><span>Made in Sri Lanka</span></div>
+    <div className="footer-bottom"><span>© 2024 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
   </footer>
 }
 
@@ -113,10 +109,11 @@ function Layout({children}){return <><Header/>{children}<Footer/></>}
 function ProductCard({p}){
   const {wishlist,toggleWishlist,addToCart}=useApp();
   const wished=wishlist.includes(p.id);
-  return <div className={"product-card "+(p.id===3?"selected":"")}>
+  return <div className={"product-card "+(p.id===13?"selected":"")}>
     {p.tag&&<span className="sale">{p.tag}</span>}
-    <Link to={`/products/${p.id}`} className="product-image"><img src={A+p.image} alt={p.name}/><button aria-label={`Add ${p.name} to inquiry`} onClick={e=>{e.preventDefault();addToCart(p)}} className="quick-cart"><ShoppingBag/></button><button aria-label={`Save ${p.name} to wishlist`} onClick={e=>{e.preventDefault();toggleWishlist(p.id)}} className="wish"><Heart fill={wished?"currentColor":"none"}/></button></Link>
-    <div className="product-meta"><h3>{p.name}</h3><div><b>Price on request</b><span className="mini-cart" title="Add to inquiry" onClick={()=>addToCart(p)}><ShoppingBag size={15}/></span></div><small>Sun Rich Paradise · Sri Lanka</small></div>
+    <Link to={`/products/${p.id}`} className="product-image"><img src={A+p.image} alt={p.name}/></Link>
+    <div className="product-quick-actions"><button aria-label={`Save ${p.name} to wishlist`} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button><button aria-label={`Quick view ${p.name}`} onClick={()=>window.dispatchEvent(new CustomEvent("sunrich:quickview",{detail:p}))}><Eye/></button></div>
+    <div className="product-meta"><Link to={`/products/${p.id}`}><h3>{p.name}</h3></Link><div><b>Price on request</b><button className="mini-cart" title="Add to inquiry" onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
   </div>
 }
 
@@ -125,26 +122,26 @@ export function Home(){
   return <Layout>
     <section className="hero">
       <img src={A+"hero-basket.jpg"} />
-      <div><small>WELCOME TO SUN RICH PARADISE</small><h1>Sri Lankan coconuts.<br/>Made for the world.</h1><p>Organic coconut products · Export supply · Private label</p><p className="muted">Abey Marine (Pvt) Ltd manufactures and exports coconut products from Negombo, Sri Lanka, with bulk supply and private-label packing for international partners.</p><Link className="btn" to="/products">Explore Products <ArrowRight size={16}/></Link></div>
+      <div><small>WELCOME TO SUN RICH</small><h1>Pure. Natural.<br/>Sri Lankan Goodness.</h1><p>100% Natural · Farm Fresh · Premium Quality</p><p className="muted">From handpicked coconuts and tropical fruits to authentic Sri Lankan organic products, we bring nature’s finest directly to your home.</p><Link className="btn" to="/products">Shop now <ArrowRight size={16}/></Link></div>
     </section>
     <section className="benefits">
-      <Benefit icon={<ShieldCheck/>} title="Certified Organic" text="Organic coconut product range" active/>
-      <Benefit icon={<CheckCircle2/>} title="CDA Approved" text="Factory approved by Sri Lanka's CDA"/>
-      <Benefit icon={<Package/>} title="Private Label" text="Packing options for export partners"/>
-      <Benefit icon={<Truck/>} title="Bulk Shipping" text="Export supply from Sri Lanka"/>
+      <Benefit icon={<Truck/>} title="Free Shipping" text="Free shipping with discount"/>
+      <Benefit icon={<Headphones/>} title="Great Support 24/7" text="Instant access to Contact"/>
+      <Benefit icon={<ShoppingBag/>} title="100% Secure Payment" text="We ensure your money is save" active/>
+      <Benefit icon={<Package/>} title="Money-Back Guarantee" text="30 days money-back"/>
     </section>
     <section className="trust section">
       <div className="collage"><img src={A+"farmer-1.jpg"}/><img src={A+"farmer-2.jpg"}/></div>
-      <div><small>ABOUT SUN RICH PARADISE</small><h2>Coconut products from Sri Lanka's coconut triangle.</h2>
-        <p>Manufacturing and export, rooted in Negombo.</p><p className="muted">Abey Marine (Pvt) Ltd produces Sun Rich Paradise virgin coconut oil and a range of coconut products. Its Negombo facility is positioned near coconut plantations, Colombo Port and the international airport.</p>
-        <p>Built for international supply.</p><p className="muted">Sun Rich offers private-label packing and bulk shipping alongside its own product range.</p>
-        <Link className="btn" to="/about">Our Company <ArrowRight size={16}/></Link>
+      <div><h2>100% Trusted<br/>Natural &amp; Quality Food Products</h2>
+        <p>Healthy &amp; natural food for lovers of healthy food.</p><p className="muted">Bringing you fresh, healthy, and naturally sourced food products crafted with care for every family. At Sun Rich, we believe in delivering pure goodness through high-quality ingredients and trusted food solutions.</p>
+        <p>Every day fresh and quality products for you.</p><p className="muted">From carefully selected raw materials to hygienic processing, Sun Rich ensures every product meets the highest standards of taste, nutrition, and quality. Our commitment is to provide wholesome food products that make everyday living healthier and better.</p>
+        <Link className="btn" to="/products">Shop Now <ArrowRight size={16}/></Link>
       </div>
     </section>
-    <section className="stats"><div><b>16</b><span>Listed Product Lines</span></div><div><b>CDA</b><span>Approved Factory</span></div><div><b>Negombo</b><span>Sri Lanka</span></div><div><b>Bulk</b><span>And Private-Label Supply</span></div></section>
-    <section className="section featured"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><p className="price-note">Prices are provided on request. Contact Sun Rich for current export and bulk quotations.</p><div className="products-grid four">{PRODUCTS.slice(0,4).map(p=><ProductCard p={p} key={p.id}/>)}</div></section>
-    <section className="testimonials"><small>EXPORT SERVICES</small><h2>Supply solutions for your market.</h2><div className="testimonial-grid"><article><span className="quote"><Package/></span><h3>Private-label packing</h3><p>Pack Sun Rich products for your brand and market requirements.</p></article><article><span className="quote"><Truck/></span><h3>Bulk supply</h3><p>Shipping options for international buyers and business partners.</p></article><article><span className="quote"><ShieldCheck/></span><h3>Quality-focused production</h3><p>Organic products and a factory approved by Sri Lanka's Coconut Development Authority.</p></article></div></section>
-    <section className="contact-strip"><div><MapPin/><b>OUR LOCATION</b><span>Negombo, Sri Lanka<br/>Near plantations, port and airport</span></div><div><Phone/><b>CONTACT OUR TEAM</b><span><a href="tel:+94117090222">+94 11 709 0222</a><br/><a href="mailto:info@sunrich.org">info@sunrich.org</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><div><input type="email" placeholder="Your email address"/><button onClick={openNewsletter}>Subscribe</button></div></div></section>
+    <section className="stats"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></section>
+    <section className="section featured"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></section>
+    <section className="testimonials"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews">←</button><button aria-label="Next reviews">→</button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><b>{name}</b><small>Customer</small><span className="stars">★★★★★</span></article>)}</div></section>
+    <section className="contact-strip"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></section>
   </Layout>
 }
 
@@ -152,16 +149,30 @@ function Benefit({icon,title,text,active}){return <div className={active?"active
 
 export function ProductsPage(){
   const [quick,setQuick]=useState(null);
+  const [currentPage,setCurrentPage]=useState(1);
   const router=useRouter();
   const category=typeof router.query.category==="string"?router.query.category:"All Products";
-  const setCategory=value=>router.push({pathname:"/products",query:value==="All Products"?{}:{category:value}},undefined,{shallow:true});
+  const setCategory=value=>{
+    setCurrentPage(1);
+    router.push({pathname:"/products",query:value==="All Products"?{}:{category:value}},undefined,{shallow:true});
+  };
   const [sort,setSort]=useState("featured");
   const [query,setQuery]=useState("");
-  const categories=PRODUCT_CATEGORIES;
-  const visibleProducts=PRODUCTS.filter(p=>(category==="All Products"||p.category===category)&&p.name.toLowerCase().includes(query.trim().toLowerCase())).sort((a,b)=>sort==="name"?a.name.localeCompare(b.name):a.id-b.id);
+  useEffect(()=>{
+    const openQuickView=event=>setQuick(event.detail);
+    window.addEventListener("sunrich:quickview",openQuickView);
+    return ()=>window.removeEventListener("sunrich:quickview",openQuickView);
+  },[]);
+  const matchesCategory=p=>category==="All Products"||p.categories.includes(category);
+  const visibleProducts=PRODUCTS.filter(p=>matchesCategory(p)&&p.name.toLowerCase().includes(query.trim().toLowerCase())).sort((a,b)=>sort==="name"?a.name.localeCompare(b.name):a.id-b.id);
+  const pageSize=15;
+  const pageCount=Math.ceil(visibleProducts.length/pageSize);
+  const pageProducts=visibleProducts.slice((currentPage-1)*pageSize,currentPage*pageSize);
+  const changeSearch=value=>{setQuery(value);setCurrentPage(1)};
+  const changeSort=value=>{setSort(value);setCurrentPage(1)};
+  const goToPage=page=>setCurrentPage(Math.min(Math.max(page,1),pageCount));
   return <Layout>
-    <PageTitle title="Products" crumb="Products"/>
-    <section className="section products-layout"><aside><b>Categories</b>{categories.map(x=><button className={category===x?"cat-active":""} key={x} onClick={()=>setCategory(x)}>{x}<ChevronRight size={13}/></button>)}<hr/><b>Export pricing</b><p className="catalog-note">Prices vary by product, pack size and order volume. Request a current quote.</p><Link className="text-link" to="/contact">Contact Sun Rich <ArrowRight size={14}/></Link></aside><main><div className="product-toolbar"><label className="catalog-search"><Search size={16}/><input aria-label="Search products" placeholder="Search products" value={query} onChange={e=>setQuery(e.target.value)}/></label><span>Showing {visibleProducts.length} of {PRODUCTS.length} products</span><select aria-label="Sort products" value={sort} onChange={e=>setSort(e.target.value)}><option value="featured">Sort by: Featured</option><option value="name">Name: A to Z</option></select></div><p className="price-note">For current pricing, pack sizes and export terms, please request a quote.</p>{visibleProducts.length?<div className="products-grid four">{visibleProducts.map(p=><div key={p.id}><ProductCard p={p}/><button className="quick-link" onClick={()=>setQuick(p)}><Eye size={14}/> Quick view</button></div>)}</div>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
+    <section className="section catalog-page"><aside className="filter-sidebar"><button className="filter-pill">Filter <Menu size={16}/></button><h3>All Categories <ChevronDown size={16}/></h3>{PRODUCT_CATEGORIES.map(x=><button className={"filter-category "+(category===x?"cat-active":"")} key={x} onClick={()=>setCategory(x)}><i/>{x}<small>({x==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.categories.includes(x)).length})</small></button>)}<hr/><h3>Export Supply <ChevronDown size={16}/></h3><p className="filter-caption">Wholesale and export pricing available on request.</p><hr/><h3>Popular Tag <ChevronDown size={16}/></h3><div className="tag-list">{["Organic","Natural","Sri Lankan","Vegan","Gluten Free","Non GMO","Coconut Based","Export Quality"].map((x,i)=><button className={i===1?"tag-active":""} key={x}>{x}</button>)}</div></aside><main className="catalog-results"><div className="catalog-toolbar"><div className="sort-control"><span>Sort by:</span><select aria-label="Sort products" value={sort} onChange={e=>changeSort(e.target.value)}><option value="featured">Catalog order</option><option value="name">Name: A to Z</option></select></div><form className="catalog-search" onSubmit={e=>e.preventDefault()}><Search size={16}/><input aria-label="Search products" placeholder="Search" value={query} onChange={e=>changeSearch(e.target.value)}/><button>Search</button></form><span className="results-count">{visibleProducts.length} Results Found</span></div>{visibleProducts.length?<><div className="products-grid catalog-grid">{pageProducts.map(p=><ProductCard p={p} key={p.id}/>)}</div>{pageCount>1&&<nav className="pagination" aria-label="Product pages"><button aria-label="Previous page" disabled={currentPage===1} onClick={()=>goToPage(currentPage-1)}>‹</button>{Array.from({length:pageCount},(_,index)=>index+1).map(page=><button key={page} className={currentPage===page?"page-active":""} aria-current={currentPage===page?"page":undefined} onClick={()=>goToPage(page)}>{page}</button>)}<button aria-label="Next page" disabled={currentPage===pageCount} onClick={()=>goToPage(currentPage+1)}>›</button></nav>}</>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
     {quick&&<Modal onClose={()=>setQuick(null)}><QuickView p={quick}/></Modal>}
   </Layout>
 }
@@ -171,30 +182,91 @@ function PageTitle({title,crumb}){return <div className="page-title"><div><Link 
 function QuickView({p}){const {addToCart}=useApp();const [qty,setQty]=useState(1);return <div className="quickview"><img src={A+p.image} alt={p.name}/><div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2><h3>Price on request</h3><p>{p.description}</p><p className="muted">Ask us to confirm available pack sizes and export pricing.</p><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={16}/></button></div></div>}
 
 export function ProductDetail({id}){
-  const p=PRODUCTS.find(x=>x.id===Number(id))||PRODUCTS[2]; const {addToCart}=useApp();const [qty,setQty]=useState(1);const [tab,setTab]=useState("Description");
-  return <Layout><PageTitle title="Product Details" crumb={p.name}/><section className="section detail"><div className="detail-image"><img src={A+p.image} alt={p.name}/></div><div><small>{p.category} · Sri Lanka</small><h1>{p.name}</h1><h2>Price on request</h2><p className="muted">{p.description}</p><ul className="check-list"><li><CheckCircle2/>Manufactured in Sri Lanka</li><li><CheckCircle2/>Private-label packing available</li><li><CheckCircle2/>Bulk export enquiries welcome</li></ul><div className="qty-row"><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={16}/></button></div></div></section><section className="section tabs">{["Description","Additional Information","Feedbacks"].map(x=><button className={tab===x?"tab-active":""} key={x} onClick={()=>setTab(x)}>{x}</button>)}<div><h3>{tab}</h3>{tab==="Description"?<p>{p.description}</p>:tab==="Additional Information"?<p>Product line: {p.category}<br/>Origin: Sri Lanka<br/>Available services: Private-label packing and bulk shipping.</p>:<p>For product feedback, specifications or a quotation, please <Link to="/contact">contact Sun Rich Paradise</Link>.</p>}</div></section><section className="section"><div className="section-head"><h2>Related Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{PRODUCTS.filter(x=>x.id!==p.id).slice(0,4).map(x=><ProductCard p={x} key={x.id}/>)}</div></section></Layout>
+  const p=PRODUCTS.find(x=>x.id===Number(id))||PRODUCTS[0];
+  const {addToCart,toggleWishlist,wishlist}=useApp();
+  const [qty,setQty]=useState(1);
+  const [tab,setTab]=useState("Descriptions");
+  const information=[
+    `Product: ${p.name}`,
+    "Origin: Sri Lanka",
+    ...(p.specifications||[]),
+    "Export pricing and further product specifications: available on request",
+  ];
+  return <Layout>
+    <section className="detail-hero">
+      <div className="detail-image"><img src={A+p.image} alt={p.name}/></div>
+      <div className="detail-summary">
+        <h1>{p.name}</h1>
+        <div className="detail-rating">{p.category}　·　Sun Rich Paradise product catalog</div>
+        <p className="detail-price"><b>Price on request</b></p>
+        <div className="detail-share"><span>Origin: Sri Lanka</span><span>Share item:　<b>f　♥　p　◎</b></span></div>
+        <p className="detail-copy">{p.description}</p>
+        <div className="detail-buy">
+          <div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={14}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={14}/></button></div>
+          <button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={15}/></button>
+          <button className="detail-wish" aria-label="Add to wishlist" onClick={()=>toggleWishlist(p.id)}><Heart fill={wishlist.includes(p.id)?"currentColor":"none"}/></button>
+        </div>
+        <div className="detail-taxonomy"><p><b>Category:</b> {p.category}</p><p><b>Product:</b> {p.name}</p></div>
+      </div>
+    </section>
+    <nav className="detail-tabs" aria-label="Product details">{["Descriptions","Additional Information","Customer Feedback"].map(x=><button className={tab===x?"tab-active":""} key={x} onClick={()=>setTab(x)}>{x}</button>)}</nav>
+    <section className="detail-tab-content">
+      {tab==="Descriptions"?<div className="product-description"><p>{p.description}</p><p>For current availability, export pricing, samples, or further technical information, please contact the Sun Rich team.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>
+        :tab==="Additional Information"?<div className="product-information"><p>Additional Information</p><ul>{information.map(x=><li key={x}>{x}</li>)}</ul></div>
+          :<div className="customer-feedback"><h3>Product information and samples</h3><p>Contact us for product references, samples, or export inquiries about {p.name}.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>}
+    </section>
+    <section className="section related-products"><div className="section-head"><h2>Related　Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(x=><ProductCard p={x} key={x.id}/>)}</div></section>
+  </Layout>
 }
 
 export function Wishlist(){
-  const {wishlist,cart,addToCart,toggleWishlist}=useApp(); const items=PRODUCTS.filter(p=>wishlist.includes(p.id));
-  return <Layout><PageTitle title="My Wishlist" crumb="Wishlist"/><section className="section table-wrap">{items.length?<table><thead><tr><th>Product</th><th>Pricing</th><th>Supply</th><th>Action</th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image}/><span>{p.name}</span></div></td><td>Price on request</td><td><span className="in-stock">Export inquiry</span></td><td><button className="btn small" onClick={()=>addToCart(p)}>Add to inquiry</button><button className="remove" onClick={()=>toggleWishlist(p.id)}><Trash2 size={15}/></button></td></tr>)}</tbody></table>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
+  const {wishlist,addToCart,toggleWishlist}=useApp(); const items=PRODUCTS.filter(p=>wishlist.includes(p.id));
+  return <Layout><section className="wishlist-page"><h1>My Wishlist</h1>{items.length?<div className="wishlist-table"><table><thead><tr><th>Product</th><th>Price</th><th>Availability</th><th></th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image} alt={p.name}/><span>{p.name}</span></div></td><td><b>Price on request</b></td><td><span className="stock-status">Contact for availability</span></td><td><button className="btn wishlist-add" onClick={()=>addToCart(p)}>Add to inquiry</button><button className="wishlist-remove" aria-label={`Remove ${p.name} from wishlist`} onClick={()=>toggleWishlist(p.id)}><X/></button></td></tr>)}</tbody></table><div className="wishlist-share">Share: <b>f</b>　♥　℘　◎</div></div>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
 }
 
-function CartDrawer({close}){const {cart,removeFromCart,setQty}=useApp();return <div className="overlay" onClick={close}><aside className="drawer" onClick={e=>e.stopPropagation()}><div className="drawer-head"><h2>Inquiry List</h2><button onClick={close}><X/></button></div>{cart.length?cart.map(x=><div className="drawer-item" key={x.id}><img src={A+x.image} alt=""/><div><b>{x.name}</b><span>Price on request</span><div className="qty"><button aria-label={`Remove one ${x.name}`} onClick={()=>setQty(x.id,x.qty-1)}><Minus size={12}/></button><span>{x.qty}</span><button aria-label={`Add one ${x.name}`} onClick={()=>setQty(x.id,x.qty+1)}><Plus size={12}/></button></div></div><button aria-label={`Remove ${x.name}`} onClick={()=>removeFromCart(x.id)}><Trash2 size={14}/></button></div>):<Empty title="Your inquiry list is empty" text="Add products to request export pricing."/>}<p className="catalog-note">Final pricing depends on product specifications, packaging and order volume.</p><Link className="btn wide" to="/billing" onClick={close}>Request a Quote</Link><Link className="continue" to="/products" onClick={close}>Continue Browsing</Link></aside></div>}
+function CartDrawer({close}){const {cart,removeFromCart}=useApp();return <div className="overlay" onClick={close}><aside className="drawer" onClick={e=>e.stopPropagation()}><div className="drawer-head"><h2>Inquiry List ({cart.length})</h2><button aria-label="Close inquiry list" onClick={close}><X/></button></div><div className="drawer-products">{cart.map(x=><div className="drawer-item" key={x.id}><img src={A+x.image} alt={x.name}/><div><b>{x.name}</b><span>Quantity: {x.qty} · Price on request</span></div><button aria-label={`Remove ${x.name}`} onClick={()=>removeFromCart(x.id)}><X size={18}/></button></div>)}</div><div className="drawer-bottom"><div><span>{cart.length} Product{cart.length===1?"":"s"}</span><b>Quote on request</b></div><Link className="btn wide" to="/billing" onClick={close}>Send Inquiry</Link><Link className="drawer-cart-link" to="/billing" onClick={close}>View inquiry</Link></div></aside></div>}
 
-export function Billing(){const {cart}=useApp();const [sent,setSent]=useState(false);return <Layout><PageTitle title="Request a Quote" crumb="Quote Request"/><section className="section checkout"><form id="quote-form" onSubmit={e=>{e.preventDefault();setSent(true)}}><h2>Your Contact Details</h2><div className="form-grid"><label>Full Name<input required autoComplete="name"/></label><label>Company<input autoComplete="organization"/></label><label>Country / Region<input required autoComplete="country-name"/></label><label>Phone<input required type="tel" autoComplete="tel"/></label><label className="full">Business Email<input type="email" required autoComplete="email"/></label><label className="full">Requirements<textarea placeholder="Target quantity, packaging, destination market, and any product specifications" required/></label></div></form><aside className="order-box"><h2>Products for Quote</h2>{cart.length?cart.map(x=><div className="order-row" key={x.id}><span>{x.name}</span><b>Qty {x.qty}</b></div>):<p className="muted">Your inquiry list is empty. Browse the catalog and add products to request a quote.</p>}<button className="btn wide" type="submit" form="quote-form" disabled={!cart.length}>Send Quote Request</button>{sent&&<p className="form-status" role="status">Your quote request is ready. Connect the inquiry form to the sales team to submit it.</p>}</aside></section></Layout>}
+export function Billing(){
+  const {cart}=useApp();
+  const [sent,setSent]=useState(false);
+  return <Layout><section className="billing-page">
+    <form id="quote-form" onSubmit={e=>{e.preventDefault();setSent(true)}}>
+      <h1>Contact Information</h1>
+      <div className="billing-fields">
+        <label>First name<input required placeholder="Your first name" autoComplete="given-name"/></label>
+        <label>Last name<input required placeholder="Your last name" autoComplete="family-name"/></label>
+        <label>Company Name <small>(optional)</small><input placeholder="Company name" autoComplete="organization"/></label>
+        <label className="billing-full">Street Address<input required placeholder="Street address" autoComplete="street-address"/></label>
+        <label>Country / Region<select required defaultValue=""><option value="" disabled>Select</option><option>Sri Lanka</option><option>United States</option><option>United Kingdom</option></select></label>
+        <label>State / Province<select defaultValue=""><option value="" disabled>Select</option><option>Western Province</option><option>Central Province</option></select></label>
+        <label>Email<input required type="email" placeholder="Email Address" autoComplete="email"/></label>
+        <label>Phone<input required type="tel" placeholder="Phone number" autoComplete="tel"/></label>
+      </div>
+      <hr/><h2>Additional Info</h2>
+      <label className="billing-notes">Inquiry Notes (Optional)<textarea placeholder="Tell us about your requirements, destination, or preferred packaging."/></label>
+    </form>
+    <aside className="order-summary">
+      <h2>Product Inquiry</h2>
+      {cart.length?cart.map(x=><div className="summary-product" key={x.id}><img src={A+x.image} alt=""/><span>{x.name}　×{x.qty}</span><b>Quote on request</b></div>):<p>Your inquiry list is empty.</p>}
+      <div className="summary-line summary-total"><span>Pricing:</span><b>Available on request</b></div>
+      <p>We will confirm availability, specifications, and export pricing with you.</p>
+      <button className="btn wide" type="submit" form="quote-form" disabled={!cart.length}>Send Inquiry</button>
+      {sent&&<p className="form-status" role="status">Your inquiry details are ready for our team.</p>}
+    </aside>
+  </section></Layout>
+}
 
-export function Auth({register=false}){const [submitted,setSubmitted]=useState(false);return <Layout><PageTitle title={register?"Create Account":"Sign In"} crumb={register?"Create Account":"Login"}/><section className="auth"><form onSubmit={e=>{e.preventDefault();setSubmitted(true)}}>{register?<><h2>Create Account</h2><label>Name<input required autoComplete="name"/></label><label>Email<input type="email" required autoComplete="email"/></label><label>Password<input type="password" required minLength={8} autoComplete="new-password"/></label><label>Confirm Password<input type="password" required minLength={8} autoComplete="new-password"/></label><button className="btn wide">Create Account</button><p>Already have an account? <Link to="/login">Sign in</Link></p></>:<><h2>Sign in</h2><label>Email<input type="email" required autoComplete="email"/></label><label>Password<input type="password" required autoComplete="current-password"/></label><div className="remember"><label><input type="checkbox"/> Remember me</label><Link to="#">Forgot Password?</Link></div><button className="btn wide">Sign in</button><p>Don't have an account? <Link to="/create-account">Create account</Link></p></>}{submitted&&<p className="form-status" role="status">Your details are valid. Connect an authentication service to finish {register?"creating an account":"signing in"}.</p>}</form></section></Layout>}
+export function Auth({register=false}){const [submitted,setSubmitted]=useState(false);const [showPassword,setShowPassword]=useState(false);return <Layout><section className={`auth-page ${register?"register-page":""}`}><form className="auth-card" onSubmit={e=>{e.preventDefault();setSubmitted(true)}}><h1>{register?"Create Account":"Sign In"}</h1><label className="auth-input"><input type="email" placeholder="Email" required autoComplete="email"/></label><label className="auth-input"><input type={showPassword?"text":"password"} placeholder="Password" required minLength={8} autoComplete={register?"new-password":"current-password"}/><button type="button" aria-label="Show or hide password" onClick={()=>setShowPassword(value=>!value)}><Eye size={19}/></button></label>{register?<><label className="auth-input"><input type={showPassword?"text":"password"} placeholder="Confirm Password" required minLength={8} autoComplete="new-password"/><button type="button" aria-label="Show or hide password" onClick={()=>setShowPassword(value=>!value)}><Eye size={19}/></button></label><label className="terms-check"><input type="checkbox" required/> Accept all terms &amp; Conditions</label><button className="btn wide">{submitted?"Create Account":"Create Account"}</button><p>Already have account <Link to="/login">Login</Link></p></>:<><div className="remember"><label><input type="checkbox"/> Remember me</label><Link to="#">Forget Password</Link></div><button className="btn wide">Login</button><p>Don’t have account? <Link to="/create-account">Register</Link></p></>}{submitted&&<p className="form-status" role="status">Your details are valid. Connect an authentication service to finish.</p>}</form></section></Layout>}
 
-export function Contact(){const [sent,setSent]=useState(false);return <Layout><PageTitle title="Contact Us" crumb="Contact Us"/><section className="section contact-page"><div className="contact-cards"><div><MapPin/><b>Our Location</b><span>Negombo, Sri Lanka<br/>Coconut triangle</span></div><div><Phone/><b>Office Phone</b><a href="tel:+94117090222">+94 11 709 0222</a><a href="tel:+94707779787">+94 70 777 9787</a></div><div><Mail/><b>Email Us</b><a href="mailto:info@sunrich.org">info@sunrich.org</a></div></div><form className="contact-form" onSubmit={e=>{e.preventDefault();setSent(true)}}><h2>Just Say Hello!</h2><p className="muted">Contact us for product information, private-label packing, bulk orders or export quotations.</p><div className="form-grid"><label>Name<input required autoComplete="name"/></label><label>Email<input type="email" required autoComplete="email"/></label><label>Phone<input type="tel"/></label><label>Subject<input required/></label><label className="full">Message<textarea required minLength={10}/></label></div><button className="btn">Send Message <ArrowRight size={16}/></button>{sent&&<p className="form-status" role="status">Thanks for reaching out. Your message is ready for Sun Rich Paradise.</p>}</form></section></Layout>}
+export function Contact(){const [sent,setSent]=useState(false);return <Layout><section className="contact-page"><aside className="contact-info"><div><MapPin/><p>61, Borella Road,<br/>Depanama, Pannipitiya,<br/>Sri Lanka</p></div><div><Mail/><p><a href="mailto:info@sunrich.org">info@sunrich.org</a><br/><a href="mailto:exports@sunrich.org">exports@sunrich.org</a></p></div><div><Phone/><p><a href="tel:+94117090222">+94 11 70 90 222</a><br/><a href="tel:+94707779787">+94 70 777 9787</a></p></div></aside><form className="contact-form" onSubmit={e=>{e.preventDefault();setSent(true)}}><h1>Just Say Hello!</h1><p>Have a question about our products, exports, partnerships, or need<br className="desktop-break"/> assistance with your order? Our team is always ready to help.<br className="desktop-break"/> Whether you are looking for premium organic coconut products, B2B<br className="desktop-break"/> export opportunities, or simply want to learn more about Sun Rich<br className="desktop-break"/> Paradise, feel free to contact us.</p><div className="contact-fields"><input aria-label="Name" placeholder="Enter your name" required autoComplete="name"/><input aria-label="Email address" type="email" placeholder="Enter your email address." required autoComplete="email"/><input className="contact-subject" aria-label="How can we help?" placeholder="How can we help?"/><textarea aria-label="Message" placeholder="Write your message here" required minLength={10}/></div><button className="btn">Send Message</button>{sent&&<p className="form-status" role="status">Thank you! Your message is ready for our team.</p>}</form></section></Layout>}
 
-export function About(){return <Layout><PageTitle title="About Sun Rich Paradise" crumb="About Us"/><section className="about-hero"><div><small>ABEY MARINE (PVT) LTD</small><h1>Manufacturing Sri Lankan coconut products for export.</h1><p>Sun Rich Paradise is a coconut-products manufacturer, exporter and supplier based in Negombo, Sri Lanka.</p><Link className="btn" to="/products">Explore Products <ArrowRight size={16}/></Link></div><img src={A+"farmer-2.jpg"}/></section><section className="section about-grid"><div><small>OUR FACILITY</small><h2>At the heart of Sri Lanka's coconut triangle.</h2></div><div><p>The Sun Rich Paradise Virgin Coconut Oil facility is located in Negombo, with access to coconut plantations, Colombo Port and the international airport.</p><p>The company supplies its own branded products and offers private-label packing and bulk shipping for business partners. Its factory is approved by the Coconut Development Authority of Sri Lanka.</p><a className="btn" href="https://sunrich.org/wp-content/uploads/2022/02/Sunrich_Product-Catoloug.pdf" target="_blank" rel="noreferrer">View Product Catalogue <ArrowRight size={16}/></a></div></section><section className="stats"><div><b>16</b><span>Listed Product Lines</span></div><div><b>CDA</b><span>Approved Factory</span></div><div><b>Negombo</b><span>Sri Lanka</span></div><div><b>Bulk</b><span>And Private-Label Supply</span></div></section></Layout>}
+export function About(){return <><header className="about-header"><Link to="/" className="about-brand"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> SUN RICH</Link><nav><Link to="/about">About</Link><Link to="/products">Our Products</Link><Link to="/about">Certifications</Link><Link to="/contact">Export B2B</Link></nav><div><span>EN</span><Link className="btn" to="/contact">Get a Quote</Link></div></header><main className="about-site"><section className="about-banner"><h1>Connecting Sri Lankan<br/>With The World<span>Nature</span></h1><p>Pioneering the export of premium organic produce from the heart of Sri<br/> Lanka to global kitchens.</p><Link className="btn" to="/contact">Our Story</Link></section><section className="about-legacy"><img src={A+"farmer-2.jpg"} alt="Sri Lankan farmer at work"/><div className="legacy-copy"><small>OUR LEGACY</small><h2>A Legacy Built on Quality and Trust</h2><p>Sun Rich Paradise, produced by Abey Marine (Pvt) Ltd, is a leading Sri Lankan manufacturer and exporter of premium organic coconut products.</p><p>Located in the heart of Sri Lanka’s coconut-growing region, our facility is strategically positioned to access high-quality coconut plantations while maintaining efficient export operations through major international logistics networks.</p><p>From our signature Organic Virgin Coconut Oil to coconut-based food products, every item is carefully processed to preserve natural flavour, nutrition, and purity. With strong relationships with local farmers, modern manufacturing technology, and internationally recognized certifications, we continue to share the authentic taste of Sri Lanka with customers around the world.</p><div className="legacy-stats"><span><b>25+</b> Years of Heritage</span><span><b>40+</b> Export Markets</span><span><b>100%</b> Organic Certified</span></div></div></section><section className="mission-section"><article><h2>Our Vision</h2><p>To become the most trusted global ambassador for Sri Lanka’s organic products by delivering premium quality, sustainable, and naturally sourced food products while promoting environmental responsibility.</p></article><article><h2>Our Mission</h2><p>To produce and market high-quality natural coconut products that meet international standards while creating sustainable opportunities for farmers, employees, and communities.</p></article></section><section className="principles-section"><small>CORE PRINCIPLES</small><h2>The Pillars of Sun Rich</h2><div>{["Quality","Sustainability","Authenticity","Innovation"].map((x,i)=><article key={x}><b>{["✿","◉","♧","⚗"][i]}</b><h3>{x}</h3><p>Maintaining the highest standards and supporting responsible, sustainable Sri Lankan organic production.</p></article>)}</div></section><section className="process-section"><h2>Our Traceable Process</h2><p>From Sri Lankan Farms To Global Markets</p><div>{["Raw Materials","Processing","Quality Testing","Export"].map((x,i)=><article key={x}><b>0{i+1}</b><h3>{x}</h3><p>We source premium coconuts and carefully process every product, guaranteeing exceptional quality.</p></article>)}</div></section><section className="sustainability-section"><div><small>PIONEERING SUSTAINABILITY</small><h2>Building A Greener Future Through Responsible Agriculture</h2><p>At Sun Rich Paradise, sustainability is at the heart of everything we do. We support organic farming practices that reduce environmental impact while improving soil health and protecting Sri Lanka’s natural ecosystem.</p><p><b>Zero-Waste Facility</b><br/>We reuse coconut by-products and organic waste to create environmentally friendly solutions.</p><p><b>Community Empowerment</b><br/>We work closely with farming communities to encourage sustainable agricultural practices and create long-term partnerships.</p></div><img src={A+"farmer-1.jpg"} alt="Sustainable Sri Lankan agriculture"/></section></main><Footer/></>}
 
-export function NotFound(){return <Layout><section className="notfound"><div className="four04">404</div><h1>Oops! Page not found</h1><p>The page you're looking for doesn't exist or has been moved.</p><Link className="btn" to="/">Back to Home</Link></section></Layout>}
+export function NotFound(){return <Layout><section className="notfound"><img src={A+"404-illustration.png"} alt="404 — page not found"/><h1>Oops! page not found</h1><Link className="btn" to="/">Back to Home</Link></section></Layout>}
 
 function Empty({title,text}){return <div className="empty"><ShoppingBag/><h2>{title}</h2><p>{text}</p><Link className="btn" to="/products">Shop Products</Link></div>}
 function Modal({children,onClose}){return <div className="overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={onClose}><X/></button>{children}</div></div>}
-function Newsletter({close}){const [subscribed,setSubscribed]=useState(false);return <Modal onClose={close}><form className="newsletter-modal" onSubmit={e=>{e.preventDefault();setSubscribed(true)}}><img src={A+"hero-basket.jpg"} alt="Fresh Sri Lankan produce"/><div><small>STAY IN THE LOOP</small><h2>Subscribe to Our Newsletter</h2><p>Get product updates, seasonal offers and news from Sun Rich.</p><input type="email" placeholder="Your email address" aria-label="Your email address" required/><button className="btn wide">Subscribe</button>{subscribed&&<p className="form-status" role="status">You're on the list for Sun Rich updates.</p>}</div></form></Modal>}
+function Newsletter({close}){const [subscribed,setSubscribed]=useState(false);return <Modal onClose={close}><button className="newsletter-close" aria-label="Close newsletter" onClick={close}><X/></button><form className="newsletter-modal" onSubmit={e=>{e.preventDefault();setSubscribed(true)}}><img src={A+"hero-basket.jpg"} alt="Fresh Sri Lankan produce"/><div><h2>Subscribe to Our<br/>Newsletter</h2><p>Stay updated with Sun Rich! Get the latest product updates, healthy food tips, special offers, and exclusive discounts delivered straight to your inbox.</p><label className="newsletter-input"><input type="email" placeholder="Enter your email" aria-label="Your email address" required/><button className="btn">Subscribe</button></label><label className="newsletter-skip"><input type="checkbox"/> Do not show this window</label>{subscribed&&<p className="form-status" role="status">You're on the list for Sun Rich updates.</p>}</div></form></Modal>}
 
 function CartOverlay(){const {cartOpen,closeCart}=useApp(); return cartOpen?<CartDrawer close={closeCart}/>:null}
 function FloatingCart(){const {cart,openCart}=useApp(); if(!cart.length)return null; return <button className="floating-cart" onClick={openCart}><ShoppingBag/><span>{cart.reduce((a,x)=>a+x.qty,0)}</span></button>}
