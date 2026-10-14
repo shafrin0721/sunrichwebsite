@@ -796,6 +796,49 @@ footer,
   font-size: 13px;
 }
 
+.share-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.share-item-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.share-item-actions button {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 50%;
+  color: #777;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.share-item-actions button:hover,
+.share-item-actions button:focus-visible {
+  background: #edf5ef;
+  color: #006c3b;
+}
+
+.share-item-actions svg {
+  width: 14px;
+  height: 14px;
+}
+
+.share-item-status {
+  flex-basis: 100%;
+  color: #006c3b;
+  font-size: 10px;
+  text-align: right;
+}
+
 .detail-copy {
   margin: 0;
   padding: 0 0 15px;

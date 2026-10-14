@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import {
   Search, Heart, ShoppingBag, UserRound, ChevronDown, MapPin, Phone, Menu, X,
   Truck, Headphones, ShieldCheck, Package, ArrowRight, ArrowLeft, Star, CheckCircle2,
-  Mail, Instagram, Facebook, Linkedin, Eye, Plus, Minus, Trash2, ChevronRight
+  Mail, Instagram, Facebook, Linkedin, Eye, Plus, Minus, Trash2, ChevronRight, Copy
 } from "lucide-react";
 
 const A="/assets/";
@@ -33,6 +33,15 @@ export const PRODUCTS = [
   {id:11,name:"Condense Milk",image:"catalog-organic-coconut-condensed-milk.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
   {id:12,name:"King Coconut Oil",image:"catalog-organic-virgin-king-coconut-oil.jpeg",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
 ];
+
+export function getProductSlug(product){
+  return product.name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+
+export function findProductBySlug(slug){
+  return PRODUCTS.find(product=>getProductSlug(product)===slug)
+    ||PRODUCTS.find(product=>String(product.id)===slug);
+}
 
 const PRODUCT_CATEGORIES=["All Products","Organic Coconut Oils","Coconut Foods","Healthy Snacks","Natural Sweeteners","Beverages","Premium Collection"];
 
@@ -100,7 +109,7 @@ function Footer(){
       <div><h4>Company</h4><Link to="/about">Our Story</Link><Link to="/products">Products</Link><Link to="/about">Certifications</Link><Link to="/contact">Contact</Link></div>
       <div><h4>Headquarters</h4><p>Negombo, Sri Lanka</p><p><a href="tel:+94117090222">+94 11 709 0222</a></p><p><a href="tel:+94707779787">+94 70 777 9787</a></p><p><a href="mailto:info@sunrich.org">info@sunrich.org</a></p></div>
     </div>
-    <div className="footer-bottom"><span>© 2024 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
+    <div className="footer-bottom"><span>© 2026 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
   </footer>
 }
 
@@ -111,9 +120,9 @@ function ProductCard({p}){
   const wished=wishlist.includes(p.id);
   return <div className={"product-card "+(p.id===13?"selected":"")}>
     {p.tag&&<span className="sale">{p.tag}</span>}
-    <Link to={`/products/${p.id}`} className="product-image"><img src={A+p.image} alt={p.name}/></Link>
+    <Link to={`/products/${getProductSlug(p)}`} className="product-image"><img src={A+p.image} alt={p.name}/></Link>
     <div className="product-quick-actions"><button aria-label={`Save ${p.name} to wishlist`} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button><button aria-label={`Quick view ${p.name}`} onClick={()=>window.dispatchEvent(new CustomEvent("sunrich:quickview",{detail:p}))}><Eye/></button></div>
-    <div className="product-meta"><Link to={`/products/${p.id}`}><h3>{p.name}</h3></Link><div><b>Price on request</b><button className="mini-cart" title="Add to inquiry" onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
+    <div className="product-meta"><Link to={`/products/${getProductSlug(p)}`}><h3>{p.name}</h3></Link><div><b>Price on request</b><button className="mini-cart" title="Add to inquiry" onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
   </div>
 }
 
@@ -181,8 +190,65 @@ function PageTitle({title,crumb}){return <div className="page-title"><div><Link 
 
 function QuickView({p}){const {addToCart}=useApp();const [qty,setQty]=useState(1);return <div className="quickview"><img src={A+p.image} alt={p.name}/><div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2><h3>Price on request</h3><p>{p.description}</p><p className="muted">Ask us to confirm available pack sizes and export pricing.</p><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={16}/></button></div></div>}
 
-export function ProductDetail({id}){
-  const p=PRODUCTS.find(x=>x.id===Number(id))||PRODUCTS[0];
+async function copyShareLink(){
+  const url=window.location.href;
+  if(navigator.clipboard?.writeText){
+    await navigator.clipboard.writeText(url);
+    return;
+  }
+  const input=document.createElement("textarea");
+  input.value=url;
+  input.setAttribute("readonly","");
+  input.style.position="fixed";
+  input.style.opacity="0";
+  document.body.appendChild(input);
+  input.select();
+  try{
+    if(!document.execCommand("copy")) throw new Error("Copy command was not available");
+  }finally{
+    input.remove();
+  }
+}
+
+function ShareItem({product}){
+  const [message,setMessage]=useState("");
+  const shareTo=(platform)=>{
+    const url=window.location.href;
+    const shareUrl=platform==="facebook"
+      ?"https://www.facebook.com/sunrichparadise/"
+      :`https://wa.me/?text=${encodeURIComponent(`${product.name} ${url}`)}`;
+    window.open(shareUrl,"_blank","noopener,noreferrer");
+  };
+  const copyLink=async()=>{
+    try{
+      await copyShareLink();
+      setMessage("Link copied.");
+      return true;
+    }catch{
+      setMessage("Could not copy the link. Please copy the page URL from your browser.");
+      return false;
+    }
+  };
+  const shareToInstagram=()=>{
+    window.open("https://www.instagram.com/","_blank","noopener,noreferrer");
+    copyLink().then(copied=>{
+      if(copied) setMessage("Link copied. Paste it into Instagram to share.");
+    });
+  };
+  return <span className="share-item">
+    <span>Share item:</span>
+    <span className="share-item-actions">
+      <button type="button" aria-label="Share on Facebook" title="Facebook" onClick={()=>shareTo("facebook")}><Facebook/></button>
+      <button type="button" aria-label="Share on WhatsApp" title="WhatsApp" onClick={()=>shareTo("whatsapp")}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 3.9A11.8 11.8 0 0 0 12 .5C5.6.5.4 5.7.4 12.1c0 2 .5 3.9 1.5 5.6L.3 23.5l6-1.6a11.7 11.7 0 0 0 5.6 1.4h.1c6.4 0 11.6-5.2 11.6-11.6 0-3.1-1.2-5.9-3.5-7.8ZM12 21.3c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.6.9 1-3.5-.3-.4a9.2 9.2 0 0 1-1.4-4.9A9.7 9.7 0 0 1 12 2.1c2.6 0 5 1 6.8 2.8a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.6-9.6 9.6Zm5.3-7.2c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4Z"/></svg></button>
+      <button type="button" aria-label="Share on Instagram" title="Instagram (copies the link)" onClick={shareToInstagram}><Instagram/></button>
+      <button type="button" aria-label="Copy product link" title="Copy link" onClick={copyLink}><Copy/></button>
+    </span>
+    {message&&<span className="share-item-status" role="status">{message}</span>}
+  </span>
+}
+
+export function ProductDetail({slug}){
+  const p=findProductBySlug(slug)||PRODUCTS[0];
   const {addToCart,toggleWishlist,wishlist}=useApp();
   const [qty,setQty]=useState(1);
   const [tab,setTab]=useState("Descriptions");
@@ -199,7 +265,8 @@ export function ProductDetail({id}){
         <h1>{p.name}</h1>
         <div className="detail-rating">{p.category}　·　Sun Rich Paradise product catalog</div>
         <p className="detail-price"><b>Price on request</b></p>
-        <div className="detail-share"><span>Origin: Sri Lanka</span><span>Share item:　<b>f　♥　p　◎</b></span></div>
+        <div className="detail-share"><span>Origin: Sri Lanka</span><ShareItem product={p}/></div>
+
         <p className="detail-copy">{p.description}</p>
         <div className="detail-buy">
           <div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={14}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={14}/></button></div>

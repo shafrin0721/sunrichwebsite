@@ -1,22 +1,32 @@
-import {PRODUCTS, ProductDetail} from "../../src/site";
+import {PRODUCTS, ProductDetail, findProductBySlug, getProductSlug} from "../../src/site";
 import PageHead from "../../src/page-head";
 
-export default function ProductPage({id}) {
-  const product=PRODUCTS.find(item=>item.id===Number(id));
+export default function ProductPage({slug}) {
+  const product=findProductBySlug(slug);
   return <>
     <PageHead title={product?.name||"Product Details"} description={product?.description||"Product specifications and export inquiry information from Sun Rich Paradise."}/>
-    <ProductDetail id={id}/>
+    <ProductDetail slug={slug}/>
   </>;
 }
 
 export function getStaticPaths() {
   return {
-    paths: PRODUCTS.map(product=>({params:{id:String(product.id)}})),
+    paths: PRODUCTS.map(product=>({params:{id:getProductSlug(product)}})),
     fallback: "blocking",
   };
 }
 
 export function getStaticProps({params}) {
-  if(!PRODUCTS.some(product=>product.id===Number(params.id)))return {notFound:true};
-  return {props: {id: params.id}};
+  const slug=params.id;
+  const product=findProductBySlug(slug);
+  if(!product)return {notFound:true};
+  if(slug!==getProductSlug(product)){
+    return {
+      redirect: {
+        destination:`/products/${getProductSlug(product)}`,
+        permanent:true,
+      },
+    };
+  }
+  return {props: {slug}};
 }
