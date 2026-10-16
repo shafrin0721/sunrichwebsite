@@ -1728,6 +1728,90 @@ footer,
   font-size: 20px;
 }
 
+.certificates-page {
+  color: #204531;
+}
+
+.certification-hero {
+  padding: 110px 5% 60px;
+  background: linear-gradient(180deg, #eef8f0 0%, #f9fcf9 100%);
+  text-align: center;
+}
+
+.certification-hero small {
+  color: #bf974c;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.certification-hero h1 {
+  margin: 16px auto 12px;
+  color: #1a3f2d;
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 4vw, 54px);
+  line-height: 1.1;
+}
+
+.certification-hero p {
+  max-width: 760px;
+  margin: auto;
+  color: #587160;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.certification-content {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 34px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 50px 5% 90px;
+}
+
+.certification-badges-wrap {
+  padding: 18px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff, #f3f8f4);
+  box-shadow: 0 18px 48px rgba(24, 67, 50, 0.08);
+}
+
+.certification-badges-wrap img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.certification-copy {
+  padding: 14px 0;
+}
+
+.certification-copy h2 {
+  margin: 0 0 16px;
+  color: #1a3f2d;
+  font-family: Georgia, serif;
+  font-size: clamp(26px, 2.3vw, 36px);
+  line-height: 1.2;
+}
+
+.certification-copy p,
+.certification-copy li {
+  color: #5d6e63;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.certification-copy ul {
+  margin: 20px 0 0;
+  padding-left: 18px;
+}
+
+.certification-copy li + li {
+  margin-top: 8px;
+}
+
 .mission-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
