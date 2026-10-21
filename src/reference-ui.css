@@ -922,8 +922,8 @@ footer,
 }
 
 .detail-tab-content {
-  min-height: 490px;
-  padding: 38px 9% 5px;
+  min-height: 0;
+  padding: 24px 9% 32px;
 }
 
 .product-description,
@@ -1027,6 +1027,103 @@ footer,
 
 .review-summary .stars {
   color: #ff8a00;
+}
+
+.customer-feedback h2 {
+  margin: 0 0 6px;
+  color: #242424;
+  font-size: 20px;
+}
+
+.customer-feedback > p {
+  margin: 0 0 18px;
+}
+
+.feedback-form {
+  display: grid;
+  max-width: 680px;
+  grid-template-columns: 1fr auto;
+  gap: 14px 18px;
+  align-items: end;
+  padding: 18px;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: #fbfcfb;
+}
+
+.feedback-form > label {
+  display: grid;
+  gap: 6px;
+  color: #333;
+  font-size: 12px;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #dfe5e0;
+  border-radius: 4px;
+  background: #fff;
+  color: #222;
+  font-size: 13px;
+}
+
+.feedback-rating {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.feedback-rating legend {
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 12px;
+}
+
+.feedback-rating > div {
+  display: flex;
+  gap: 3px;
+}
+
+.feedback-rating button {
+  padding: 2px;
+  color: #e5a51a;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.feedback-form .feedback-comment {
+  grid-column: 1 / -1;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+}
+
+.feedback-form .btn {
+  justify-self: start;
+}
+
+.feedback-form .btn:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.feedback-form .form-status {
+  margin: 0;
+}
+
+.feedback-empty,
+.feedback-storage-note {
+  color: #858c87;
+  font-size: 12px;
+}
+
+.feedback-storage-note {
+  display: block;
+  margin-top: 12px;
 }
 
 .related-products.section {
@@ -2474,6 +2571,15 @@ body:has(.notfound) .floating-cart {
     font-size: 11px;
   }
 
+  .feedback-form {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .feedback-form .feedback-comment {
+    grid-column: auto;
+  }
+
   .product-certifications {
     width: auto;
     flex-wrap: wrap;
@@ -2661,4 +2767,84 @@ body:has(.notfound) .floating-cart {
 
 .about-header {
   display: none;
+}
+
+:root {
+  --site-content-width: 1280px;
+  --site-gutter: max(20px, calc((100vw - var(--site-content-width)) / 2));
+}
+
+.topbar,
+.navwrap,
+.about-header,
+.hero,
+.benefits,
+.section,
+.stats,
+.testimonials,
+.contact-strip,
+.footer-top,
+.page-title,
+.catalog-page,
+.detail-hero,
+.detail-tabs,
+.detail-tab-content,
+.wishlist-page,
+.billing-page,
+.auth-page,
+.contact-page,
+.about-banner,
+.about-legacy,
+.mission-section,
+.principles-section,
+.process-section,
+.sustainability-section,
+.certification-hero,
+.certification-content,
+.notfound {
+  padding-inline: var(--site-gutter);
+}
+
+.section,
+.about-legacy,
+.certification-content {
+  max-width: none;
+}
+
+.footer-bottom {
+  margin-inline: var(--site-gutter);
+  padding-inline: 0;
+}
+
+.product-image {
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+}
+
+.product-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.detail-image {
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.quickview > img {
+  display: block;
+  width: 100%;
+  height: 340px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }

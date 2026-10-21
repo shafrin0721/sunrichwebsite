@@ -20,18 +20,18 @@ function NavLink({to, children}) {
 }
 
 export const PRODUCTS = [
-  {id:1,name:"Virgin Coconut Oil",image:"catalog-organic-virgin-coconut-oil.jpeg",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"Cold-pressed and unrefined virgin coconut oil. The catalog lists PET and HDPE bottles, glass jars, and bulk packaging, with a shelf life of up to two years.",specifications:["Processing: cold-pressed and unrefined","Packaging: PET/HDPE bottles, glass jars, and bulk","Shelf life: up to 2 years"]},
-  {id:2,name:"Coconut Flour",image:"catalog-organic-coconut-flour.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut flour made from coconut oil cake. The catalog lists retail packs and larger food-service and bulk sizes.",specifications:["Pack sizes: 200g, 375g, 454g, 10kg, and 25kg, plus bulk","Shelf life: 12 months"]},
-  {id:3,name:"Coconut Chips",image:"catalog-organic-coconut-chips.jpeg",category:"Coconut Snacks",categories:["Coconut Foods","Healthy Snacks"],description:"Coconut chips available in natural and toasted varieties, as well as chocolate, caramel, and sugar flavours.",specifications:["Varieties: natural and toasted","Flavours: chocolate, caramel, and sugar"]},
-  {id:4,name:"Desiccated Coconut",image:"catalog-organic-desiccated-coconut.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Desiccated coconut from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:5,name:"Coconut Milk Powder",image:"catalog-organic-coconut-milk-powder.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut milk powder from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:6,name:"Coconut Milk",image:"catalog-organic-coconut-milk.jpeg",category:"Coconut Foods",categories:["Coconut Foods","Beverages"],description:"A dairy-free coconut milk used in curries, soups, beverages, sweets, and desserts. The catalog specifies 400ml cans and a 24-month shelf life.",specifications:["Pack size: 400ml can","Shelf life: 24 months"]},
-  {id:7,name:"Coconut Cream",image:"catalog-organic-coconut-cream.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut cream from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:8,name:"Coconut Sugar",image:"catalog-organic-coconut-sugar.jpeg",category:"Natural Sweeteners",categories:["Natural Sweeteners"],description:"Coconut sugar from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:9,name:"King Coconut Water",image:"catalog-organic-king-coconut-water.jpeg",category:"Coconut Beverages",categories:["Beverages","Premium Collection"],description:"Water from Sri Lankan King Coconut, a golden-orange variety found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
-  {id:10,name:"Creamed Coconut",image:"catalog-organic-creamed-coconut.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Unsweetened dried coconut meat ground into a semi-solid paste. The catalog lists bulk pails in 10kg and 18kg sizes.",specifications:["Packaging: bulk pails, 10kg and 18kg"]},
-  {id:11,name:"Condense Milk",image:"catalog-organic-coconut-condensed-milk.jpeg",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:12,name:"King Coconut Oil",image:"catalog-organic-virgin-king-coconut-oil.jpeg",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
+  {id:1,name:"Virgin Coconut Oil",image:"product-original-virgin-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"Cold-pressed and unrefined virgin coconut oil. The catalog lists PET and HDPE bottles, glass jars, and bulk packaging, with a shelf life of up to two years.",specifications:["Processing: cold-pressed and unrefined","Packaging: PET/HDPE bottles, glass jars, and bulk","Shelf life: up to 2 years"]},
+  {id:2,name:"Coconut Flour",image:"product-original-coconut-flour.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut flour made from coconut oil cake. The catalog lists retail packs and larger food-service and bulk sizes.",specifications:["Pack sizes: 200g, 375g, 454g, 10kg, and 25kg, plus bulk","Shelf life: 12 months"]},
+  {id:3,name:"Coconut Chips",image:"product-original-coconut-chips.png",category:"Coconut Snacks",categories:["Coconut Foods","Healthy Snacks"],description:"Coconut chips available in natural and toasted varieties, as well as chocolate, caramel, and sugar flavours.",specifications:["Varieties: natural and toasted","Flavours: chocolate, caramel, and sugar"]},
+  {id:4,name:"Desiccated Coconut",image:"product-original-desiccated-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Desiccated coconut from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:5,name:"Coconut Milk Powder",image:"product-original-coconut-milk-powder.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut milk powder from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:6,name:"Coconut Milk",image:"product-original-coconut-milk.png",category:"Coconut Foods",categories:["Coconut Foods","Beverages"],description:"A dairy-free coconut milk used in curries, soups, beverages, sweets, and desserts. The catalog specifies 400ml cans and a 24-month shelf life.",specifications:["Pack size: 400ml can","Shelf life: 24 months"]},
+  {id:7,name:"Coconut Cream",image:"product-original-coconut-cream.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut cream from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:8,name:"Coconut Sugar",image:"product-original-coconut-sugar.png",category:"Natural Sweeteners",categories:["Natural Sweeteners"],description:"Coconut sugar from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:9,name:"King Coconut Water",image:"product-original-king-coconut-water.png",category:"Coconut Beverages",categories:["Beverages","Premium Collection"],description:"Water from Sri Lankan King Coconut, a golden-orange variety found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
+  {id:10,name:"Creamed Coconut",image:"product-original-creamed-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Unsweetened dried coconut meat ground into a semi-solid paste. The catalog lists bulk pails in 10kg and 18kg sizes.",specifications:["Packaging: bulk pails, 10kg and 18kg"]},
+  {id:11,name:"Condense Milk",image:"product-original-coconut-condensed-milk.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:12,name:"King Coconut Oil",image:"product-original-king-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
 ];
 
 export function getProductSlug(product){
@@ -280,10 +280,86 @@ export function ProductDetail({slug}){
     <section className="detail-tab-content">
       {tab==="Descriptions"?<div className="product-description"><p>{p.description}</p><p>For current availability, export pricing, samples, or further technical information, please contact the Sun Rich team.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>
         :tab==="Additional Information"?<div className="product-information"><p>Additional Information</p><ul>{information.map(x=><li key={x}>{x}</li>)}</ul></div>
-          :<div className="customer-feedback"><h3>Product information and samples</h3><p>Contact us for product references, samples, or export inquiries about {p.name}.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>}
+          :<CustomerFeedback key={p.id} product={p}/>}
     </section>
     <section className="section related-products"><div className="section-head"><h2>Related　Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(x=><ProductCard p={x} key={x.id}/>)}</div></section>
   </Layout>
+}
+
+function CustomerFeedback({product}){
+  const storageKey=`sunrich:product-reviews:${product.id}`;
+  const [reviews,setReviews]=useState([]);
+  const [name,setName]=useState("");
+  const [rating,setRating]=useState(5);
+  const [comment,setComment]=useState("");
+  const [status,setStatus]=useState("");
+  const [loading,setLoading]=useState(true);
+
+  useEffect(()=>{
+    try{
+      const saved=window.localStorage.getItem(storageKey);
+      if(saved){
+        const parsed=JSON.parse(saved);
+        if(!Array.isArray(parsed)) throw new Error("Saved product reviews have an invalid format.");
+        setReviews(parsed.filter(review=>
+          review&&typeof review.id==="string"&&typeof review.name==="string"&&
+          Number.isInteger(review.rating)&&review.rating>=1&&review.rating<=5&&
+          typeof review.comment==="string"&&typeof review.createdAt==="string"&&
+          Number.isFinite(Date.parse(review.createdAt))
+        ));
+      }
+    }catch{
+      setStatus("Saved reviews could not be loaded. You can still add feedback.");
+    }finally{
+      setLoading(false);
+    }
+  },[storageKey]);
+
+  const submitReview=event=>{
+    event.preventDefault();
+    const review={
+      id:globalThis.crypto?.randomUUID?.()||`${Date.now()}-${Math.random()}`,
+      name:name.trim(),
+      rating,
+      comment:comment.trim(),
+      createdAt:new Date().toISOString(),
+    };
+    const updated=[review,...reviews];
+    setReviews(updated);
+    setName("");
+    setRating(5);
+    setComment("");
+    try{
+      window.localStorage.setItem(storageKey,JSON.stringify(updated));
+      setStatus("Thank you for your feedback. It is saved in this browser.");
+    }catch{
+      setStatus("Your feedback was added for this session but could not be saved in this browser.");
+    }
+  };
+
+  return <div className="customer-feedback">
+    <h2>Customer Feedback</h2>
+    <p>Share your experience with {product.name}.</p>
+    <form className="feedback-form" onSubmit={submitReview}>
+      <label>Your name<input value={name} onChange={event=>setName(event.target.value)} required maxLength={80} autoComplete="name"/></label>
+      <fieldset className="feedback-rating">
+        <legend>Your rating</legend>
+        <div>{[1,2,3,4,5].map(value=><button key={value} type="button" aria-label={`${value} star${value===1?"":"s"}`} aria-pressed={rating===value} onClick={()=>setRating(value)}>{value<=rating?"★":"☆"}</button>)}</div>
+      </fieldset>
+      <label className="feedback-comment">Your feedback<textarea value={comment} onChange={event=>setComment(event.target.value)} required minLength={5} maxLength={2000} rows={4}/></label>
+      <button className="btn" type="submit" disabled={loading}>Submit Feedback</button>
+      {status&&<p className="form-status" role="status">{status}</p>}
+    </form>
+    <div className="review-list" aria-live="polite">
+      {reviews.map(review=><article key={review.id}>
+        <div className="review-heading"><b>{review.name}</b><span>{new Date(review.createdAt).toLocaleDateString()}</span></div>
+        <div className="stars" aria-label={`${review.rating} out of 5 stars`}>{"★".repeat(review.rating)}{"☆".repeat(5-review.rating)}</div>
+        <p>{review.comment}</p>
+      </article>)}
+      {!loading&&!reviews.length&&<p className="feedback-empty">No feedback yet. Be the first to share your experience.</p>}
+    </div>
+    <small className="feedback-storage-note">Feedback is saved in this browser.</small>
+  </div>
 }
 
 export function Wishlist(){
