@@ -4,10 +4,14 @@ import {useRouter} from "next/router";
 import {
   Search, Heart, ShoppingBag, UserRound, ChevronDown, MapPin, Phone, Menu, X,
   Truck, Headphones, ShieldCheck, Package, ArrowRight, ArrowLeft, Star, CheckCircle2,
-  Mail, Instagram, Facebook, Linkedin, Eye, Plus, Minus, Trash2, ChevronRight, Copy
+  Mail, Facebook, Eye, Plus, Minus, Trash2, ChevronRight, Copy
 } from "lucide-react";
 
 const A="/assets/";
+
+function WhatsAppIcon(){
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 3.9A11.8 11.8 0 0 0 12 .5C5.6.5.4 5.7.4 12.1c0 2 .5 3.9 1.5 5.6L.3 23.5l6-1.6a11.7 11.7 0 0 0 5.6 1.4h.1c6.4 0 11.6-5.2 11.6-11.6 0-3.1-1.2-5.9-3.5-7.8ZM12 21.3c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.6.9 1-3.5-.3-.4a9.2 9.2 0 0 1-1.4-4.9A9.7 9.7 0 0 1 12 2.1c2.6 0 5 1 6.8 2.8a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.6-9.6 9.6Zm5.3-7.2c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4Z"/></svg>;
+}
 
 function Link({to, ...props}) {
   return <NextLink href={to} {...props}/>;
@@ -103,7 +107,10 @@ function Footer(){
   return <footer>
     <div className="footer-top">
       <div><Link className="footer-logo" to="/" aria-label="Sun Rich home"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> <b>SUN RICH</b></Link><p>Manufacturer, exporter and supplier of premium Sri Lankan coconut products.<br/>Committed to natural, organic and eco-friendly processing for global markets.</p>
-        <div className="socials"><span><Linkedin/></span><span><Instagram/></span><span><Facebook/></span></div>
+        <div className="socials">
+          <a href="https://www.facebook.com/sunrichparadise/" target="_blank" rel="noreferrer" aria-label="Sun Rich on Facebook"><Facebook/></a>
+          <a href="https://wa.me/94707779787" target="_blank" rel="noreferrer" aria-label="Contact Sun Rich on WhatsApp"><WhatsAppIcon/></a>
+        </div>
       </div>
       <div><h4>Product Line</h4><Link to="/products">Virgin Coconut Oil</Link><Link to="/products">Coconut Flour</Link><Link to="/products">Coconut Chips</Link><Link to="/products">Desiccated Coconut</Link><Link to="/products">Coconut Milk &amp; Cream</Link></div>
       <div><h4>Company</h4><Link to="/about">Our Story</Link><Link to="/products">Products</Link><Link to="/certificates">Certifications</Link><Link to="/contact">Contact</Link></div>
@@ -229,22 +236,43 @@ function ShareItem({product}){
       return false;
     }
   };
-  const shareToInstagram=()=>{
-    window.open("https://www.instagram.com/","_blank","noopener,noreferrer");
-    copyLink().then(copied=>{
-      if(copied) setMessage("Link copied. Paste it into Instagram to share.");
-    });
-  };
   return <span className="share-item">
     <span>Share item:</span>
     <span className="share-item-actions">
       <button type="button" aria-label="Share on Facebook" title="Facebook" onClick={()=>shareTo("facebook")}><Facebook/></button>
-      <button type="button" aria-label="Share on WhatsApp" title="WhatsApp" onClick={()=>shareTo("whatsapp")}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 3.9A11.8 11.8 0 0 0 12 .5C5.6.5.4 5.7.4 12.1c0 2 .5 3.9 1.5 5.6L.3 23.5l6-1.6a11.7 11.7 0 0 0 5.6 1.4h.1c6.4 0 11.6-5.2 11.6-11.6 0-3.1-1.2-5.9-3.5-7.8ZM12 21.3c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.6.9 1-3.5-.3-.4a9.2 9.2 0 0 1-1.4-4.9A9.7 9.7 0 0 1 12 2.1c2.6 0 5 1 6.8 2.8a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.6-9.6 9.6Zm5.3-7.2c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4Z"/></svg></button>
-      <button type="button" aria-label="Share on Instagram" title="Instagram (copies the link)" onClick={shareToInstagram}><Instagram/></button>
+      <button type="button" aria-label="Share on WhatsApp" title="WhatsApp" onClick={()=>shareTo("whatsapp")}><WhatsAppIcon/></button>
       <button type="button" aria-label="Copy product link" title="Copy link" onClick={copyLink}><Copy/></button>
     </span>
     {message&&<span className="share-item-status" role="status">{message}</span>}
   </span>
+}
+
+function WishlistShare(){
+  const [message,setMessage]=useState("");
+  const shareTo=(platform)=>{
+    const url=window.location.href;
+    const shareUrl=platform==="facebook"
+      ?`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+      :`https://wa.me/?text=${encodeURIComponent(url)}`;
+    window.open(shareUrl,"_blank","noopener,noreferrer");
+  };
+  const copyLink=async(successMessage="Link copied.")=>{
+    try{
+      await copyShareLink();
+      setMessage(successMessage);
+    }catch{
+      setMessage("Could not copy the link. Please copy the page URL from your browser.");
+    }
+  };
+  return <div className="wishlist-share">
+    <span>Share:</span>
+    <span className="share-item-actions">
+      <button type="button" aria-label="Share wishlist on Facebook" title="Facebook" onClick={()=>shareTo("facebook")}><Facebook/></button>
+      <button type="button" aria-label="Share wishlist on WhatsApp" title="WhatsApp" onClick={()=>shareTo("whatsapp")}><WhatsAppIcon/></button>
+      <button type="button" aria-label="Copy wishlist link" title="Copy link" onClick={()=>copyLink()}><Copy/></button>
+    </span>
+    {message&&<span className="share-item-status" role="status">{message}</span>}
+  </div>;
 }
 
 export function ProductDetail({slug}){
@@ -364,7 +392,7 @@ function CustomerFeedback({product}){
 
 export function Wishlist(){
   const {wishlist,addToCart,toggleWishlist}=useApp(); const items=PRODUCTS.filter(p=>wishlist.includes(p.id));
-  return <Layout><section className="wishlist-page"><h1>My Wishlist</h1>{items.length?<div className="wishlist-table"><table><thead><tr><th>Product</th><th>Price</th><th>Availability</th><th></th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image} alt={p.name}/><span>{p.name}</span></div></td><td><b>Price on request</b></td><td><span className="stock-status">Contact for availability</span></td><td><button className="btn wishlist-add" onClick={()=>addToCart(p)}>Add to inquiry</button><button className="wishlist-remove" aria-label={`Remove ${p.name} from wishlist`} onClick={()=>toggleWishlist(p.id)}><X/></button></td></tr>)}</tbody></table><div className="wishlist-share">Share: <b>f</b>　♥　℘　◎</div></div>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
+  return <Layout><section className="wishlist-page"><h1>My Wishlist</h1>{items.length?<div className="wishlist-table"><table><thead><tr><th>Product</th><th>Price</th><th>Availability</th><th></th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image} alt={p.name}/><span>{p.name}</span></div></td><td><b>Price on request</b></td><td><span className="stock-status">Contact for availability</span></td><td><div className="wishlist-actions"><button className="btn wishlist-add" onClick={()=>addToCart(p)}>Add to inquiry</button><button className="wishlist-remove" aria-label={`Remove ${p.name} from wishlist`} onClick={()=>toggleWishlist(p.id)}><X/></button></div></td></tr>)}</tbody></table><WishlistShare/></div>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
 }
 
 function CartDrawer({close}){const {cart,removeFromCart}=useApp();return <div className="overlay" onClick={close}><aside className="drawer" onClick={e=>e.stopPropagation()}><div className="drawer-head"><h2>Inquiry List ({cart.length})</h2><button aria-label="Close inquiry list" onClick={close}><X/></button></div><div className="drawer-products">{cart.map(x=><div className="drawer-item" key={x.id}><img src={A+x.image} alt={x.name}/><div><b>{x.name}</b><span>Quantity: {x.qty} · Price on request</span></div><button aria-label={`Remove ${x.name}`} onClick={()=>removeFromCart(x.id)}><X size={18}/></button></div>)}</div><div className="drawer-bottom"><div><span>{cart.length} Product{cart.length===1?"":"s"}</span><b>Quote on request</b></div><Link className="btn wide" to="/billing" onClick={close}>Send Inquiry</Link><Link className="drawer-cart-link" to="/billing" onClick={close}>View inquiry</Link></div></aside></div>}
