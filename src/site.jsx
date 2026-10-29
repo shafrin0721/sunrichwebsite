@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 
 const A="/assets/";
+const PRODUCT_PRICE=14.99;
+const formatPrice=amount=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(amount);
 
 function WhatsAppIcon(){
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.1 3.9A11.8 11.8 0 0 0 12 .5C5.6.5.4 5.7.4 12.1c0 2 .5 3.9 1.5 5.6L.3 23.5l6-1.6a11.7 11.7 0 0 0 5.6 1.4h.1c6.4 0 11.6-5.2 11.6-11.6 0-3.1-1.2-5.9-3.5-7.8ZM12 21.3c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.6.9 1-3.5-.3-.4a9.2 9.2 0 0 1-1.4-4.9A9.7 9.7 0 0 1 12 2.1c2.6 0 5 1 6.8 2.8a9.6 9.6 0 0 1 2.8 6.8c0 5.3-4.3 9.6-9.6 9.6Zm5.3-7.2c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.1-1.3-.1-.1-.3-.2-.6-.4Z"/></svg>;
@@ -24,18 +26,18 @@ function NavLink({to, children}) {
 }
 
 export const PRODUCTS = [
-  {id:1,name:"Virgin Coconut Oil",image:"product-original-virgin-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"Cold-pressed and unrefined virgin coconut oil. The catalog lists PET and HDPE bottles, glass jars, and bulk packaging, with a shelf life of up to two years.",specifications:["Processing: cold-pressed and unrefined","Packaging: PET/HDPE bottles, glass jars, and bulk","Shelf life: up to 2 years"]},
-  {id:2,name:"Coconut Flour",image:"product-original-coconut-flour.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut flour made from coconut oil cake. The catalog lists retail packs and larger food-service and bulk sizes.",specifications:["Pack sizes: 200g, 375g, 454g, 10kg, and 25kg, plus bulk","Shelf life: 12 months"]},
-  {id:3,name:"Coconut Chips",image:"product-original-coconut-chips.png",category:"Coconut Snacks",categories:["Coconut Foods","Healthy Snacks"],description:"Coconut chips available in natural and toasted varieties, as well as chocolate, caramel, and sugar flavours.",specifications:["Varieties: natural and toasted","Flavours: chocolate, caramel, and sugar"]},
-  {id:4,name:"Desiccated Coconut",image:"product-original-desiccated-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Desiccated coconut from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:5,name:"Coconut Milk Powder",image:"product-original-coconut-milk-powder.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut milk powder from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:6,name:"Coconut Milk",image:"product-original-coconut-milk.png",category:"Coconut Foods",categories:["Coconut Foods","Beverages"],description:"A dairy-free coconut milk used in curries, soups, beverages, sweets, and desserts. The catalog specifies 400ml cans and a 24-month shelf life.",specifications:["Pack size: 400ml can","Shelf life: 24 months"]},
-  {id:7,name:"Coconut Cream",image:"product-original-coconut-cream.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut cream from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:8,name:"Coconut Sugar",image:"product-original-coconut-sugar.png",category:"Natural Sweeteners",categories:["Natural Sweeteners"],description:"Coconut sugar from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:9,name:"King Coconut Water",image:"product-original-king-coconut-water.png",category:"Coconut Beverages",categories:["Beverages","Premium Collection"],description:"Water from Sri Lankan King Coconut, a golden-orange variety found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
-  {id:10,name:"Creamed Coconut",image:"product-original-creamed-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Unsweetened dried coconut meat ground into a semi-solid paste. The catalog lists bulk pails in 10kg and 18kg sizes.",specifications:["Packaging: bulk pails, 10kg and 18kg"]},
-  {id:11,name:"Condense Milk",image:"product-original-coconut-condensed-milk.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
-  {id:12,name:"King Coconut Oil",image:"product-original-king-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
+  {id:1,name:"Virgin Coconut Oil",price:PRODUCT_PRICE,image:"product-original-virgin-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"Cold-pressed and unrefined virgin coconut oil. The catalog lists PET and HDPE bottles, glass jars, and bulk packaging, with a shelf life of up to two years.",specifications:["Processing: cold-pressed and unrefined","Packaging: PET/HDPE bottles, glass jars, and bulk","Shelf life: up to 2 years"]},
+  {id:2,name:"Coconut Flour",price:PRODUCT_PRICE,image:"product-original-coconut-flour.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut flour made from coconut oil cake. The catalog lists retail packs and larger food-service and bulk sizes.",specifications:["Pack sizes: 200g, 375g, 454g, 10kg, and 25kg, plus bulk","Shelf life: 12 months"]},
+  {id:3,name:"Coconut Chips",price:PRODUCT_PRICE,image:"product-original-coconut-chips.png",category:"Coconut Snacks",categories:["Coconut Foods","Healthy Snacks"],description:"Coconut chips available in natural and toasted varieties, as well as chocolate, caramel, and sugar flavours.",specifications:["Varieties: natural and toasted","Flavours: chocolate, caramel, and sugar"]},
+  {id:4,name:"Desiccated Coconut",price:PRODUCT_PRICE,image:"product-original-desiccated-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Desiccated coconut from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:5,name:"Coconut Milk Powder",price:PRODUCT_PRICE,image:"product-original-coconut-milk-powder.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut milk powder from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:6,name:"Coconut Milk",price:PRODUCT_PRICE,image:"product-original-coconut-milk.png",category:"Coconut Foods",categories:["Coconut Foods","Beverages"],description:"A dairy-free coconut milk used in curries, soups, beverages, sweets, and desserts. The catalog specifies 400ml cans and a 24-month shelf life.",specifications:["Pack size: 400ml can","Shelf life: 24 months"]},
+  {id:7,name:"Coconut Cream",price:PRODUCT_PRICE,image:"product-original-coconut-cream.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Coconut cream from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:8,name:"Coconut Sugar",price:PRODUCT_PRICE,image:"product-original-coconut-sugar.png",category:"Natural Sweeteners",categories:["Natural Sweeteners"],description:"Coconut sugar from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:9,name:"King Coconut Water",price:PRODUCT_PRICE,image:"product-original-king-coconut-water.png",category:"Coconut Beverages",categories:["Beverages","Premium Collection"],description:"Water from Sri Lankan King Coconut, a golden-orange variety found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
+  {id:10,name:"Creamed Coconut",price:PRODUCT_PRICE,image:"product-original-creamed-coconut.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Unsweetened dried coconut meat ground into a semi-solid paste. The catalog lists bulk pails in 10kg and 18kg sizes.",specifications:["Packaging: bulk pails, 10kg and 18kg"]},
+  {id:11,name:"Condense Milk",price:PRODUCT_PRICE,image:"product-original-coconut-condensed-milk.png",category:"Coconut Foods",categories:["Coconut Foods"],description:"Condense Milk from the Sun Rich coconut product range. Contact us for current specifications and available pack sizes."},
+  {id:12,name:"King Coconut Oil",price:PRODUCT_PRICE,image:"product-original-king-coconut-oil.png",category:"Coconut Oils",categories:["Organic Coconut Oils","Premium Collection"],description:"King coconut oil from the Sun Rich product range, made from the golden-orange King Coconut found only in Sri Lanka. Contact us for current specifications and available pack sizes."},
 ];
 
 export function getProductSlug(product){
@@ -53,18 +55,50 @@ const AppContext=createContext(null);
 function useApp(){return useContext(AppContext)}
 
 function AppProvider({children}){
-  const [cart,setCart]=useState([{...PRODUCTS[0],qty:5},{...PRODUCTS[6],qty:1}]);
-  const [wishlist,setWishlist]=useState([11,3,6]);
+  const [cart,setCart]=useState([]);
+  const [cartReady,setCartReady]=useState(false);
+  const [cartNotice,setCartNotice]=useState("");
+  const [wishlist,setWishlist]=useState([]);
   const [cartOpen,setCartOpen]=useState(false);
   const [newsletterOpen,setNewsletterOpen]=useState(false);
+  useEffect(()=>{
+    try{
+      const saved=window.localStorage.getItem("sunrich:cart");
+      if(saved){
+        const parsed=JSON.parse(saved);
+        if(!Array.isArray(parsed)) throw new Error("Saved cart has an invalid format.");
+        const restored=parsed.flatMap(item=>{
+          const product=PRODUCTS.find(candidate=>candidate.id===item?.id);
+          const qty=Number(item?.qty);
+          return product&&Number.isInteger(qty)&&qty>0
+            ?[{...product,qty:Math.min(qty,999)}]
+            :[];
+        });
+        setCart(restored);
+      }
+    }catch{
+      setCartNotice("Your saved cart could not be loaded. You can still add products.");
+    }finally{
+      setCartReady(true);
+    }
+  },[]);
+  useEffect(()=>{
+    if(!cartReady)return;
+    try{
+      window.localStorage.setItem("sunrich:cart",JSON.stringify(cart));
+    }catch{
+      setCartNotice("Your cart is available for this visit but could not be saved in this browser.");
+    }
+  },[cart,cartReady]);
   const addToCart=(product,qty=1)=>setCart(c=>{
+    const amount=Math.max(1,Math.min(999,Math.floor(Number(qty)||1)));
     const found=c.find(x=>x.id===product.id);
-    return found?c.map(x=>x.id===product.id?{...x,qty:x.qty+qty}:x):[...c,{...product,qty}];
+    return found?c.map(x=>x.id===product.id?{...x,qty:Math.min(999,x.qty+amount)}:x):[...c,{...product,qty:amount}];
   });
   const removeFromCart=id=>setCart(c=>c.filter(x=>x.id!==id));
-  const setQty=(id,qty)=>setCart(c=>qty<1?c.filter(x=>x.id!==id):c.map(x=>x.id===id?{...x,qty}:x));
+  const setQty=(id,qty)=>setCart(c=>qty<1?c.filter(x=>x.id!==id):c.map(x=>x.id===id?{...x,qty:Math.min(999,Math.floor(qty))}:x));
   const toggleWishlist=id=>setWishlist(w=>w.includes(id)?w.filter(x=>x!==id):[...w,id]);
-  const value=useMemo(()=>({cart,wishlist,addToCart,removeFromCart,setQty,toggleWishlist,cartOpen,openCart:()=>setCartOpen(true),closeCart:()=>setCartOpen(false),newsletterOpen,openNewsletter:()=>setNewsletterOpen(true),closeNewsletter:()=>setNewsletterOpen(false)}),[cart,wishlist,cartOpen,newsletterOpen]);
+  const value=useMemo(()=>({cart,cartNotice,wishlist,addToCart,removeFromCart,setQty,toggleWishlist,cartOpen,openCart:()=>setCartOpen(true),closeCart:()=>setCartOpen(false),newsletterOpen,openNewsletter:()=>setNewsletterOpen(true),closeNewsletter:()=>setNewsletterOpen(false)}),[cart,cartNotice,wishlist,cartOpen,newsletterOpen]);
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
@@ -80,6 +114,7 @@ function SiteOverlays() {
 export function Header(){
   const {cart,wishlist,openCart}=useApp();
   const [mobile,setMobile]=useState(false);
+  const cartCount=cart.reduce((total,item)=>total+item.qty,0);
   return <header>
     <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale">Eng <ChevronDown size={11}/>　 LKR <ChevronDown size={11}/></span></div>
     <div className="navwrap">
@@ -96,7 +131,7 @@ export function Header(){
         <a className="phone" href="tel:+94117090222"><Phone size={22}/> +94 11 709 0222</a>
         <Link to="/products" aria-label="Search products"><Search/></Link>
         <Link to="/wishlist" className="icon-badge"><Heart/><em>{wishlist.length}</em></Link>
-        <button onClick={openCart} className="icon-badge"><ShoppingBag/><em>{cart.length}</em></button>
+        <button onClick={openCart} className="icon-badge" aria-label={`Open cart, ${cartCount} item${cartCount===1?"":"s"}`}><ShoppingBag/><em>{cartCount}</em></button>
         <Link to="/login"><UserRound/></Link>
       </div>
     </div>
@@ -129,7 +164,7 @@ function ProductCard({p}){
     {p.tag&&<span className="sale">{p.tag}</span>}
     <Link to={`/products/${getProductSlug(p)}`} className="product-image"><img src={A+p.image} alt={p.name}/></Link>
     <div className="product-quick-actions"><button aria-label={`Save ${p.name} to wishlist`} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button><button aria-label={`Quick view ${p.name}`} onClick={()=>window.dispatchEvent(new CustomEvent("sunrich:quickview",{detail:p}))}><Eye/></button></div>
-    <div className="product-meta"><Link to={`/products/${getProductSlug(p)}`}><h3>{p.name}</h3></Link><div><b>Price on request</b><button className="mini-cart" title="Add to inquiry" onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
+    <div className="product-meta"><Link to={`/products/${getProductSlug(p)}`}><h3>{p.name}</h3></Link><div><b>{formatPrice(p.price)}</b><button className="mini-cart" title="Add to cart" aria-label={`Add ${p.name} to cart`} onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
   </div>
 }
 
@@ -188,14 +223,14 @@ export function ProductsPage(){
   const changeSort=value=>{setSort(value);setCurrentPage(1)};
   const goToPage=page=>setCurrentPage(Math.min(Math.max(page,1),pageCount));
   return <Layout>
-    <section className="section catalog-page"><aside className="filter-sidebar"><button className="filter-pill">Filter <Menu size={16}/></button><h3>All Categories <ChevronDown size={16}/></h3>{PRODUCT_CATEGORIES.map(x=><button className={"filter-category "+(category===x?"cat-active":"")} key={x} onClick={()=>setCategory(x)}><i/>{x}<small>({x==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.categories.includes(x)).length})</small></button>)}<hr/><h3>Export Supply <ChevronDown size={16}/></h3><p className="filter-caption">Wholesale and export pricing available on request.</p><hr/><h3>Popular Tag <ChevronDown size={16}/></h3><div className="tag-list">{["Organic","Natural","Sri Lankan","Vegan","Gluten Free","Non GMO","Coconut Based","Export Quality"].map((x,i)=><button className={i===1?"tag-active":""} key={x}>{x}</button>)}</div></aside><main className="catalog-results"><div className="catalog-toolbar"><div className="sort-control"><span>Sort by:</span><select aria-label="Sort products" value={sort} onChange={e=>changeSort(e.target.value)}><option value="featured">Catalog order</option><option value="name">Name: A to Z</option></select></div><form className="catalog-search" onSubmit={e=>e.preventDefault()}><Search size={16}/><input aria-label="Search products" placeholder="Search" value={query} onChange={e=>changeSearch(e.target.value)}/><button>Search</button></form><span className="results-count">{visibleProducts.length} Results Found</span></div>{visibleProducts.length?<><div className="products-grid catalog-grid">{pageProducts.map(p=><ProductCard p={p} key={p.id}/>)}</div>{pageCount>1&&<nav className="pagination" aria-label="Product pages"><button aria-label="Previous page" disabled={currentPage===1} onClick={()=>goToPage(currentPage-1)}>‹</button>{Array.from({length:pageCount},(_,index)=>index+1).map(page=><button key={page} className={currentPage===page?"page-active":""} aria-current={currentPage===page?"page":undefined} onClick={()=>goToPage(page)}>{page}</button>)}<button aria-label="Next page" disabled={currentPage===pageCount} onClick={()=>goToPage(currentPage+1)}>›</button></nav>}</>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
+    <section className="section catalog-page"><aside className="filter-sidebar"><button className="filter-pill">Filter <Menu size={16}/></button><h3>All Categories <ChevronDown size={16}/></h3>{PRODUCT_CATEGORIES.map(x=><button className={"filter-category "+(category===x?"cat-active":"")} key={x} onClick={()=>setCategory(x)}><i/>{x}<small>({x==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.categories.includes(x)).length})</small></button>)}<hr/><h3>Export Supply <ChevronDown size={16}/></h3><p className="filter-caption">Wholesale and export orders welcome.</p><hr/><h3>Popular Tag <ChevronDown size={16}/></h3><div className="tag-list">{["Organic","Natural","Sri Lankan","Vegan","Gluten Free","Non GMO","Coconut Based","Export Quality"].map((x,i)=><button className={i===1?"tag-active":""} key={x}>{x}</button>)}</div></aside><main className="catalog-results"><div className="catalog-toolbar"><div className="sort-control"><span>Sort by:</span><select aria-label="Sort products" value={sort} onChange={e=>changeSort(e.target.value)}><option value="featured">Catalog order</option><option value="name">Name: A to Z</option></select></div><form className="catalog-search" onSubmit={e=>e.preventDefault()}><Search size={16}/><input aria-label="Search products" placeholder="Search" value={query} onChange={e=>changeSearch(e.target.value)}/><button>Search</button></form><span className="results-count">{visibleProducts.length} Results Found</span></div>{visibleProducts.length?<><div className="products-grid catalog-grid">{pageProducts.map(p=><ProductCard p={p} key={p.id}/>)}</div>{pageCount>1&&<nav className="pagination" aria-label="Product pages"><button aria-label="Previous page" disabled={currentPage===1} onClick={()=>goToPage(currentPage-1)}>‹</button>{Array.from({length:pageCount},(_,index)=>index+1).map(page=><button key={page} className={currentPage===page?"page-active":""} aria-current={currentPage===page?"page":undefined} onClick={()=>goToPage(page)}>{page}</button>)}<button aria-label="Next page" disabled={currentPage===pageCount} onClick={()=>goToPage(currentPage+1)}>›</button></nav>}</>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
     {quick&&<Modal onClose={()=>setQuick(null)}><QuickView p={quick}/></Modal>}
   </Layout>
 }
 
 function PageTitle({title,crumb}){return <div className="page-title"><div><Link to="/">Home</Link><ChevronRight size={14}/><span>{crumb}</span></div><h1>{title}</h1></div>}
 
-function QuickView({p}){const {addToCart}=useApp();const [qty,setQty]=useState(1);return <div className="quickview"><img src={A+p.image} alt={p.name}/><div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2><h3>Price on request</h3><p>{p.description}</p><p className="muted">Ask us to confirm available pack sizes and export pricing.</p><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={16}/></button></div></div>}
+function QuickView({p}){const {addToCart}=useApp();const [qty,setQty]=useState(1);return <div className="quickview"><img src={A+p.image} alt={p.name}/><div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2><h3>{formatPrice(p.price)}</h3><p>{p.description}</p><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>Math.min(999,q+1))}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to cart <ShoppingBag size={16}/></button></div></div>}
 
 async function copyShareLink(){
   const url=window.location.href;
@@ -292,13 +327,13 @@ export function ProductDetail({slug}){
       <div className="detail-summary">
         <h1>{p.name}</h1>
         <div className="detail-rating">{p.category}　·　Sun Rich Paradise product catalog</div>
-        <p className="detail-price"><b>Price on request</b></p>
+        <p className="detail-price"><b>{formatPrice(p.price)}</b></p>
         <div className="detail-share"><span>Origin: Sri Lanka</span><ShareItem product={p}/></div>
 
         <p className="detail-copy">{p.description}</p>
         <div className="detail-buy">
           <div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={14}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={14}/></button></div>
-          <button className="btn" onClick={()=>addToCart(p,qty)}>Add to inquiry <ShoppingBag size={15}/></button>
+          <button className="btn" onClick={()=>addToCart(p,qty)}>Add to cart <ShoppingBag size={15}/></button>
           <button className="detail-wish" aria-label="Add to wishlist" onClick={()=>toggleWishlist(p.id)}><Heart fill={wishlist.includes(p.id)?"currentColor":"none"}/></button>
         </div>
         <div className="detail-taxonomy"><p><b>Category:</b> {p.category}</p><p><b>Product:</b> {p.name}</p></div>
@@ -306,7 +341,7 @@ export function ProductDetail({slug}){
     </section>
     <nav className="detail-tabs" aria-label="Product details">{["Descriptions","Additional Information","Customer Feedback"].map(x=><button className={tab===x?"tab-active":""} key={x} onClick={()=>setTab(x)}>{x}</button>)}</nav>
     <section className="detail-tab-content">
-      {tab==="Descriptions"?<div className="product-description"><p>{p.description}</p><p>For current availability, export pricing, samples, or further technical information, please contact the Sun Rich team.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>
+      {tab==="Descriptions"?<div className="product-description"><p>{p.description}</p><p>For current availability, bulk-order rates, samples, or further technical information, please contact the Sun Rich team.</p><Link className="btn" to="/contact">Contact us <ArrowRight size={15}/></Link></div>
         :tab==="Additional Information"?<div className="product-information"><p>Additional Information</p><ul>{information.map(x=><li key={x}>{x}</li>)}</ul></div>
           :<CustomerFeedback key={p.id} product={p}/>}
     </section>
@@ -392,39 +427,141 @@ function CustomerFeedback({product}){
 
 export function Wishlist(){
   const {wishlist,addToCart,toggleWishlist}=useApp(); const items=PRODUCTS.filter(p=>wishlist.includes(p.id));
-  return <Layout><section className="wishlist-page"><h1>My Wishlist</h1>{items.length?<div className="wishlist-table"><table><thead><tr><th>Product</th><th>Price</th><th>Availability</th><th></th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image} alt={p.name}/><span>{p.name}</span></div></td><td data-label="Price"><b>Price on request</b></td><td data-label="Availability"><span className="stock-status">Contact for availability</span></td><td><div className="wishlist-actions"><button className="btn wishlist-add" onClick={()=>addToCart(p)}>Add to inquiry</button><button className="wishlist-remove" aria-label={`Remove ${p.name} from wishlist`} onClick={()=>toggleWishlist(p.id)}><X/></button></div></td></tr>)}</tbody></table><WishlistShare/></div>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
+  return <Layout><section className="wishlist-page"><h1>My Wishlist</h1>{items.length?<div className="wishlist-table"><table><thead><tr><th>Product</th><th>Price</th><th>Availability</th><th></th></tr></thead><tbody>{items.map(p=><tr key={p.id}><td><div className="table-product"><img src={A+p.image} alt={p.name}/><span>{p.name}</span></div></td><td data-label="Price"><b>{formatPrice(p.price)}</b></td><td data-label="Availability"><span className="stock-status">In stock</span></td><td><div className="wishlist-actions"><button className="btn wishlist-add" onClick={()=>addToCart(p)}>Add to cart</button><button className="wishlist-remove" aria-label={`Remove ${p.name} from wishlist`} onClick={()=>toggleWishlist(p.id)}><X/></button></div></td></tr>)}</tbody></table><WishlistShare/></div>:<Empty title="Your wishlist is empty" text="Save products here and find them again later."/>}</section></Layout>
 }
 
-function CartDrawer({close}){const {cart,removeFromCart}=useApp();return <div className="overlay" onClick={close}><aside className="drawer" onClick={e=>e.stopPropagation()}><div className="drawer-head"><h2>Inquiry List ({cart.length})</h2><button aria-label="Close inquiry list" onClick={close}><X/></button></div><div className="drawer-products">{cart.map(x=><div className="drawer-item" key={x.id}><img src={A+x.image} alt={x.name}/><div><b>{x.name}</b><span>Quantity: {x.qty} · Price on request</span></div><button aria-label={`Remove ${x.name}`} onClick={()=>removeFromCart(x.id)}><X size={18}/></button></div>)}</div><div className="drawer-bottom"><div><span>{cart.length} Product{cart.length===1?"":"s"}</span><b>Quote on request</b></div><Link className="btn wide" to="/billing" onClick={close}>Send Inquiry</Link><Link className="drawer-cart-link" to="/billing" onClick={close}>View inquiry</Link></div></aside></div>}
+function CartDrawer({close}){const {cart,removeFromCart,cartNotice}=useApp();const count=cart.reduce((total,item)=>total+item.qty,0);const subtotal=cart.reduce((total,item)=>total+item.price*item.qty,0);return <div className="overlay" onClick={close}><aside className="drawer" onClick={e=>e.stopPropagation()}><div className="drawer-head"><h2>Your Cart ({count})</h2><button aria-label="Close cart" onClick={close}><X/></button></div><div className="drawer-products">{cart.map(x=><div className="drawer-item" key={x.id}><img src={A+x.image} alt={x.name}/><div><b>{x.name}</b><span>Quantity: {x.qty} · {formatPrice(x.price)} each</span></div><button aria-label={`Remove ${x.name}`} onClick={()=>removeFromCart(x.id)}><X size={18}/></button></div>)}</div>{cartNotice&&<p className="form-status" role="status">{cartNotice}</p>}<div className="drawer-bottom"><div><span>Subtotal</span><b>{formatPrice(subtotal)}</b></div>{cart.length>0&&<Link className="btn wide" to="/billing" onClick={close}>Proceed to checkout</Link>}<Link className="drawer-cart-link" to="/cart" onClick={close}>View cart</Link></div></aside></div>}
+
+export function CartPage(){
+  const {cart,removeFromCart,setQty,cartNotice}=useApp();
+  const itemCount=cart.reduce((total,item)=>total+item.qty,0);
+  const subtotal=cart.reduce((total,item)=>total+item.price*item.qty,0);
+  return <Layout><main className="cart-page">
+    <div className="cart-page-heading"><div><small>YOUR SHOPPING BAG</small><h1>Shopping Cart</h1></div><Link to="/products">Continue shopping <ArrowRight size={16}/></Link></div>
+    {cartNotice&&<p className="form-status" role="status">{cartNotice}</p>}
+    {cart.length?<div className="cart-layout">
+      <section className="cart-lines" aria-label="Cart items">
+        <div className="cart-table-head"><span>Product</span><span>Price</span><span>Quantity</span><span>Subtotal</span></div>
+        {cart.map(item=><article className="cart-line" key={item.id}>
+          <Link className="cart-product" to={`/products/${getProductSlug(item)}`}><img src={A+item.image} alt={item.name}/><span><b>{item.name}</b><small>{item.category}</small></span></Link>
+          <span className="cart-price" data-label="Price">{formatPrice(item.price)}</span>
+          <div className="cart-quantity" aria-label={`Quantity for ${item.name}`}><button type="button" aria-label={`Decrease ${item.name} quantity`} disabled={item.qty<=1} onClick={()=>setQty(item.id,item.qty-1)}><Minus size={14}/></button><span>{item.qty}</span><button type="button" aria-label={`Increase ${item.name} quantity`} disabled={item.qty>=999} onClick={()=>setQty(item.id,item.qty+1)}><Plus size={14}/></button></div>
+          <span className="cart-subtotal" data-label="Subtotal">{formatPrice(item.price*item.qty)}</span>
+          <button className="cart-remove" type="button" aria-label={`Remove ${item.name} from cart`} onClick={()=>removeFromCart(item.id)}><Trash2 size={17}/></button>
+        </article>)}
+      </section>
+      <aside className="cart-summary"><h2>Cart Summary</h2><div className="cart-summary-row"><span>Items ({itemCount})</span><b>{cart.length} product{cart.length===1?"":"s"}</b></div><div className="cart-summary-row"><span>Subtotal</span><b>{formatPrice(subtotal)}</b></div><div className="cart-summary-row"><span>Shipping</span><b>Calculated later</b></div><p>Shipping is confirmed with your order. Payment methods will be added later.</p><Link className="btn wide" to="/billing">Proceed to checkout <ArrowRight size={16}/></Link><small>No payment is collected at this time.</small></aside>
+    </div>:<Empty title="Your cart is empty" text="Browse our products and add something you love."/>}
+  </main></Layout>
+}
 
 export function Billing(){
   const {cart}=useApp();
-  const [sent,setSent]=useState(false);
-  return <Layout><section className="billing-page">
-    <form id="quote-form" onSubmit={e=>{e.preventDefault();setSent(true)}}>
-      <h1>Contact Information</h1>
-      <div className="billing-fields">
-        <label>First name<input required placeholder="Your first name" autoComplete="given-name"/></label>
-        <label>Last name<input required placeholder="Your last name" autoComplete="family-name"/></label>
-        <label>Company Name <small>(optional)</small><input placeholder="Company name" autoComplete="organization"/></label>
-        <label className="billing-full">Street Address<input required placeholder="Street address" autoComplete="street-address"/></label>
-        <label>Country / Region<select required defaultValue=""><option value="" disabled>Select</option><option>Sri Lanka</option><option>United States</option><option>United Kingdom</option></select></label>
-        <label>State / Province<select defaultValue=""><option value="" disabled>Select</option><option>Western Province</option><option>Central Province</option></select></label>
-        <label>Email<input required type="email" placeholder="Email Address" autoComplete="email"/></label>
-        <label>Phone<input required type="tel" placeholder="Phone number" autoComplete="tel"/></label>
-      </div>
-      <hr/><h2>Additional Info</h2>
-      <label className="billing-notes">Inquiry Notes (Optional)<textarea placeholder="Tell us about your requirements, destination, or preferred packaging."/></label>
-    </form>
-    <aside className="order-summary">
-      <h2>Product Inquiry</h2>
-      {cart.length?cart.map(x=><div className="summary-product" key={x.id}><img src={A+x.image} alt=""/><span>{x.name}　×{x.qty}</span><b>Quote on request</b></div>):<p>Your inquiry list is empty.</p>}
-      <div className="summary-line summary-total"><span>Pricing:</span><b>Available on request</b></div>
-      <p>We will confirm availability, specifications, and export pricing with you.</p>
-      <button className="btn wide" type="submit" form="quote-form" disabled={!cart.length}>Send Inquiry</button>
-      {sent&&<p className="form-status" role="status">Your inquiry details are ready for our team.</p>}
-    </aside>
-  </section></Layout>
+  const [status,setStatus]=useState("");
+  const [shipToDifferentAddress,setShipToDifferentAddress]=useState(false);
+  const [paymentMethod,setPaymentMethod]=useState("cod");
+  const submitOrder=event=>{
+    event.preventDefault();
+    const form=event.currentTarget;
+    const invalidField=Array.from(form.elements).find(field=>field.willValidate&&!field.checkValidity());
+    if(invalidField){
+      invalidField.setCustomValidity(invalidField.validity.valueMissing?"Please fill in this field.":"Please enter a valid value.");
+      invalidField.reportValidity();
+      invalidField.focus();
+      return;
+    }
+    const formData=new FormData(form);
+    const customer=Object.fromEntries(formData.entries());
+    const products=cart.map(item=>`- ${item.name} × ${item.qty} at ${formatPrice(item.price)} each: ${formatPrice(item.price*item.qty)}`).join("\n");
+    const subtotal=cart.reduce((total,item)=>total+item.price*item.qty,0);
+    const shippingAddress=shipToDifferentAddress
+      ?`${customer.shippingFirstName} ${customer.shippingLastName}, ${customer.shippingAddress} ${customer.shippingAddressLine2||""}, ${customer.shippingCity}, ${customer.shippingState||""}, ${customer.shippingPostalCode||""}, ${customer.shippingCountry}`
+      :`${customer.firstName} ${customer.lastName}, ${customer.address} ${customer.addressLine2||""}, ${customer.city}, ${customer.state||""}, ${customer.postalCode||""}, ${customer.country}`;
+    const body=[
+      "New Sun Rich Paradise order request",
+      "",
+      "Products:",
+      products,
+      `Subtotal: ${formatPrice(subtotal)}`,
+      "Shipping: To be confirmed",
+      `Payment preference: ${customer.paymentPreference}`,
+      "",
+      "Billing details:",
+      `${customer.firstName} ${customer.lastName}`,
+      `Company: ${customer.company||"Not provided"}`,
+      `Email: ${customer.email}`,
+      `Phone: ${customer.phone}`,
+      `Billing address: ${customer.firstName} ${customer.lastName}, ${customer.address} ${customer.addressLine2||""}, ${customer.city}, ${customer.state||""}, ${customer.postalCode||""}, ${customer.country}`,
+      `Shipping address: ${shippingAddress}`,
+      `Order notes: ${customer.notes||"None"}`,
+      "",
+      "Please confirm shipping cost and final total. This request does not take payment.",
+    ].join("\n");
+    const subject=`Sun Rich order request (${cart.reduce((total,item)=>total+item.qty,0)} items)`;
+    window.location.href=`mailto:exports@sunrich.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("Your email app should open with this order request. Send the email to complete your request; no payment has been made.");
+  };
+  const itemCount=cart.reduce((total,item)=>total+item.qty,0);
+  const subtotal=cart.reduce((total,item)=>total+item.price*item.qty,0);
+  return <Layout><main className="checkout-page">
+    <div className="checkout-heading"><div><small>SECURE CHECKOUT</small><h1>Checkout</h1></div><Link to="/cart"><ArrowLeft size={16}/> Return to cart</Link></div>
+    {!cart.length?<Empty title="Your cart is empty" text="Add products to your cart before checking out."/>:<div className="billing-page">
+      <form id="quote-form" noValidate onSubmit={submitOrder} onChange={event=>event.target.setCustomValidity?.("")}>
+        <h2>Billing Information</h2>
+        <div className="billing-fields">
+          <label className="billing-third"><span>First name</span><input name="firstName" required autoComplete="given-name"/></label>
+          <label className="billing-third"><span>Last name</span><input name="lastName" required autoComplete="family-name"/></label>
+          <label className="billing-third"><span>Company <small>(optional)</small></span><input name="company" autoComplete="organization"/></label>
+          <label className="billing-full"><span>Street address</span><input name="address" required autoComplete="address-line1"/></label>
+          <label className="billing-full"><span>Apartment, suite, etc. <small>(optional)</small></span><input name="addressLine2" autoComplete="address-line2"/></label>
+          <label className="billing-half"><span>Town / City</span><input name="city" required autoComplete="address-level2"/></label>
+          <label className="billing-half"><span>State / Province</span><input name="state" required autoComplete="address-level1"/></label>
+          <label className="billing-half"><span>Postal code</span><input name="postalCode" required autoComplete="postal-code"/></label>
+          <label className="billing-half"><span>Country / Region</span><select name="country" required defaultValue="" autoComplete="country-name"><option value="" disabled>Select a country</option><option>Sri Lanka</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option></select></label>
+          <label className="billing-half"><span>Email address</span><input name="email" type="email" required autoComplete="email"/></label>
+          <label className="billing-half"><span>Phone number</span><input name="phone" type="tel" required autoComplete="tel"/></label>
+        </div>
+        <label className="billing-check"><input type="checkbox" checked={shipToDifferentAddress} onChange={event=>setShipToDifferentAddress(event.target.checked)}/> Ship to a different address</label>
+        {shipToDifferentAddress&&<section className="shipping-address-fields" aria-label="Shipping address">
+          <h2>Shipping Address</h2>
+          <div className="billing-fields">
+            <label className="billing-third"><span>First name</span><input name="shippingFirstName" required autoComplete="shipping given-name"/></label>
+            <label className="billing-third"><span>Last name</span><input name="shippingLastName" required autoComplete="shipping family-name"/></label>
+            <label className="billing-third"><span>Company <small>(optional)</small></span><input name="shippingCompany" autoComplete="shipping organization"/></label>
+            <label className="billing-full"><span>Street address</span><input name="shippingAddress" required autoComplete="shipping address-line1"/></label>
+            <label className="billing-full"><span>Apartment, suite, etc. <small>(optional)</small></span><input name="shippingAddressLine2" autoComplete="shipping address-line2"/></label>
+            <label className="billing-half"><span>Town / City</span><input name="shippingCity" required autoComplete="shipping address-level2"/></label>
+            <label className="billing-half"><span>State / Province</span><input name="shippingState" required autoComplete="shipping address-level1"/></label>
+            <label className="billing-half"><span>Postal code</span><input name="shippingPostalCode" required autoComplete="shipping postal-code"/></label>
+            <label className="billing-half"><span>Country / Region</span><select name="shippingCountry" required defaultValue="" autoComplete="shipping country-name"><option value="" disabled>Select a country</option><option>Sri Lanka</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option></select></label>
+          </div>
+        </section>}
+        <hr/><h2>Additional Info</h2>
+        <label className="billing-notes">Order notes <small>(optional)</small><textarea name="notes" placeholder="Notes about your order, e.g. special notes for delivery." rows={4}/></label>
+      </form>
+      <aside className="order-summary">
+        <h2>Order Summary</h2>
+        {cart.map(item=><div className="summary-product" key={item.id}><img src={A+item.image} alt=""/><span>{item.name} ×{item.qty}</span><b>{formatPrice(item.price*item.qty)}</b></div>)}
+        <div className="summary-line"><span>Subtotal</span><b>{formatPrice(subtotal)}</b></div>
+        <div className="summary-line"><span>Shipping</span><b>To be confirmed</b></div>
+        <div className="summary-line summary-total"><span>Total</span><b>{formatPrice(subtotal)} + shipping</b></div>
+        <h3 className="payment-title">Payment Method</h3>
+        <label className="payment-choice"><input type="radio" name="paymentPreference" value="Cash on Delivery" form="quote-form" checked={paymentMethod==="cod"} onChange={()=>setPaymentMethod("cod")}/> Cash on Delivery</label>
+        <label className="payment-choice"><input type="radio" name="paymentPreference" value="Credit or debit card" form="quote-form" checked={paymentMethod==="card"} onChange={()=>setPaymentMethod("card")}/> Credit or debit card</label>
+        <label className="payment-choice"><input type="radio" name="paymentPreference" value="Google Pay" form="quote-form" checked={paymentMethod==="google-pay"} onChange={()=>setPaymentMethod("google-pay")}/> Google Pay</label>
+        <label className="payment-choice"><input type="radio" name="paymentPreference" value="Bank transfer" form="quote-form" checked={paymentMethod==="bank-transfer"} onChange={()=>setPaymentMethod("bank-transfer")}/> Bank transfer</label>
+        <section className="payment-details" aria-live="polite">
+          {paymentMethod==="cod"&&<><b>Cash on Delivery</b><p>Pay when your order is delivered. Delivery availability and any applicable charges will be confirmed with your order.</p></>}
+          {paymentMethod==="card"&&<><b>Secure card payment</b><p>Card number, expiry date, and security code entry will appear here after a hosted payment provider is connected. For your security, do not enter card details into this email-based checkout.</p></>}
+          {paymentMethod==="google-pay"&&<><b>Google Pay</b><p>Google Pay will be available through a connected payment provider. No payment is taken at this stage.</p></>}
+          {paymentMethod==="bank-transfer"&&<><b>Bank transfer instructions</b><p>Bank account details will be provided after the order and shipping total are confirmed.</p></>}
+        </section>
+        <p>Payment is not processed on this website. The selected method is included with your order request.</p>
+        <button className="btn wide" type="submit" form="quote-form">Place Order</button>
+        {status&&<p className="form-status" role="status">{status}</p>}
+      </aside>
+    </div>}
+  </main></Layout>
 }
 
 export function Auth({register=false}){const [submitted,setSubmitted]=useState(false);const [showPassword,setShowPassword]=useState(false);return <Layout><section className={`auth-page ${register?"register-page":""}`}><form className="auth-card" onSubmit={e=>{e.preventDefault();setSubmitted(true)}}><h1>{register?"Create Account":"Sign In"}</h1><label className="auth-input"><input type="email" placeholder="Email" required autoComplete="email"/></label><label className="auth-input"><input type={showPassword?"text":"password"} placeholder="Password" required minLength={8} autoComplete={register?"new-password":"current-password"}/><button type="button" aria-label="Show or hide password" onClick={()=>setShowPassword(value=>!value)}><Eye size={19}/></button></label>{register?<><label className="auth-input"><input type={showPassword?"text":"password"} placeholder="Confirm Password" required minLength={8} autoComplete="new-password"/><button type="button" aria-label="Show or hide password" onClick={()=>setShowPassword(value=>!value)}><Eye size={19}/></button></label><label className="terms-check"><input type="checkbox" required/> Accept all terms &amp; Conditions</label><button className="btn wide">{submitted?"Create Account":"Create Account"}</button><p>Already have account <Link to="/login">Login</Link></p></>:<><div className="remember"><label><input type="checkbox"/> Remember me</label><Link to="#">Forget Password</Link></div><button className="btn wide">Login</button><p>Don’t have account? <Link to="/create-account">Register</Link></p></>}{submitted&&<p className="form-status" role="status">Your details are valid. Connect an authentication service to finish.</p>}</form></section></Layout>}

@@ -3,7 +3,7 @@ import PageHead from "../src/page-head";
 
 export default function BillingPage() {
   return <>
-    <PageHead title="Request a Quote" description="Send Sun Rich Paradise your export product and bulk order requirements."/>
+    <PageHead title="Checkout" description="Enter your shipping details and email your Sun Rich Paradise order request."/>
     <Billing/>
   </>;
 }
