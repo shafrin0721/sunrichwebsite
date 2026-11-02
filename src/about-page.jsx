@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import {Image as ImageIcon, Eye, Lightbulb, Target} from "lucide-react";
+import {Image as ImageIcon, Eye, Sprout, Target} from "lucide-react";
 import {Footer, Header} from "./site";
 
 const A="/assets/";
@@ -14,7 +14,7 @@ export default function AboutPage(){
         <NextLink className="btn" href="/contact">Our Story</NextLink>
       </section>
       <section className="about-legacy">
-        <img src={A+encodeURIComponent("download (3).jpeg")} alt="Fresh Sri Lankan coconuts ready to enjoy"/>
+        <img src={A+encodeURIComponent("download (3).jpeg")} alt="Sri Lankan coconut farmers harvesting coconuts"/>
         <div className="legacy-copy">
           <small>OUR LEGACY</small>
           <h2>A Legacy Built on Quality and Trust</h2>
@@ -25,7 +25,7 @@ export default function AboutPage(){
       </section>
       <section className="mission-section">
         <article className="vision-card"><span className="mission-icon"><ImageIcon size={20}/></span><Eye className="mission-watermark" size={58}/><h2>Our Vision</h2><p>To become the most trusted global ambassador for Sri Lanka’s organic products by delivering premium quality, sustainable, and naturally sourced food products while promoting environmental responsibility.</p></article>
-        <article className="mission-card"><span className="mission-icon"><Lightbulb size={20}/></span><Target className="mission-watermark" size={58}/><h2>Our Mission</h2><p>To produce and market high-quality natural coconut products that meet international standards while supporting farmers, employees, and communities.</p></article>
+        <article className="mission-card"><span className="mission-icon"><Sprout size={20}/></span><Target className="mission-watermark" size={58}/><h2>Our Mission</h2><p>To produce and market high-quality natural coconut products that meet international standards while supporting farmers, employees, and communities.</p></article>
       </section>
       <section className="principles-section">
         <small>CORE PRINCIPLES</small>
@@ -47,9 +47,9 @@ export default function AboutPage(){
         </div>
         <div className="sustainability-gallery">
           <img src={A+encodeURIComponent("download (2).jpeg")} alt="Coconuts growing among palm leaves"/>
-          <img src={A+encodeURIComponent("Fresh Coconuts & Island Vibes_ A Sunny Tropical Beach Picnic.jpeg")} alt="Fresh coconuts beside a tropical beach"/>
-          <img src={A+encodeURIComponent("download (3).jpeg")} alt="Fresh coconut water and coconut on a table"/>
-          <img src={A+encodeURIComponent("download (4).jpeg")} alt="Sri Lankan coconut palms and harvest"/>
+          <img src={A+encodeURIComponent("Fresh Coconuts & Island Vibes_ A Sunny Tropical Beach Picnic.jpeg")} alt="Fresh coconuts at a tropical beach picnic"/>
+          <img src={A+encodeURIComponent("download (4).jpeg")} alt="Sri Lankan farmers harvesting coconuts among palm trees"/>
+          <img src={A+encodeURIComponent("download (3).jpeg")} alt="Fresh coconuts and king coconut served at a tropical beach"/>
         </div>
       </section>
     </main>

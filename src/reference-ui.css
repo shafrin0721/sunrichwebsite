@@ -2024,10 +2024,12 @@ footer,
 }
 
 .about-legacy > img {
+  display: block;
   width: 100%;
   height: 290px;
   border-radius: 12px;
   object-fit: cover;
+  object-position: center 68%;
   box-shadow: 0 12px 24px #0002;
 }
 
@@ -2335,22 +2337,17 @@ footer,
 .sustainability-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  align-items: center;
+  gap: 12px;
 }
 
 .sustainability-gallery img {
   display: block;
   width: 100%;
-  height: 160px;
+  height: auto;
+  aspect-ratio: 4 / 3;
   border-radius: 10px;
   background: #f5f7f4;
-  object-fit: contain;
-}
-
-.sustainability-gallery img:nth-child(2),
-.sustainability-gallery img:nth-child(3) {
-  height: 125px;
+  object-fit: cover;
 }
 
 .notfound {
@@ -4025,10 +4022,8 @@ body:has(.notfound) .floating-cart {
     min-width: calc(100% - 60px);
   }
 
-  .sustainability-gallery img,
-  .sustainability-gallery img:nth-child(2),
-  .sustainability-gallery img:nth-child(3) {
-    height: 125px;
+  .sustainability-gallery img {
+    height: auto;
   }
 }
 
