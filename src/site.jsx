@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useMemo, useState} from "re
 import NextLink from "next/link";
 import {useRouter} from "next/router";
 import {
-  Search, Heart, ShoppingBag, UserRound, ChevronDown, MapPin, Phone, Menu, X,
+  Search, Heart, ShoppingBag, UserRound, ChevronDown, MapPin, Phone, Menu, SlidersHorizontal, X,
   Truck, Headphones, ShieldCheck, Package, ArrowRight, ArrowLeft, Star, CheckCircle2,
   Mail, Facebook, Eye, Plus, Minus, Trash2, ChevronRight, Copy
 } from "lucide-react";
@@ -130,7 +130,7 @@ export function Header(){
       <div className="nav-actions">
         <a className="phone" href="tel:+94117090222"><Phone size={22}/> +94 11 709 0222</a>
         <Link to="/products" aria-label="Search products"><Search/></Link>
-        <Link to="/wishlist" className="icon-badge"><Heart/><em>{wishlist.length}</em></Link>
+        <Link to="/wishlist" className={`icon-badge ${wishlist.length?"is-wished":""}`} aria-label={`Wishlist, ${wishlist.length} item${wishlist.length===1?"":"s"}`}><Heart fill={wishlist.length?"currentColor":"none"}/><em>{wishlist.length}</em></Link>
         <button onClick={openCart} className="icon-badge" aria-label={`Open cart, ${cartCount} item${cartCount===1?"":"s"}`}><ShoppingBag/><em>{cartCount}</em></button>
         <Link to="/login"><UserRound/></Link>
       </div>
@@ -138,7 +138,7 @@ export function Header(){
   </header>
 }
 
-function Footer(){
+export function Footer(){
   return <footer>
     <div className="footer-top">
       <div><Link className="footer-logo" to="/" aria-label="Sun Rich home"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> <b>SUN RICH</b></Link><p>Manufacturer, exporter and supplier of premium Sri Lankan coconut products.<br/>Committed to natural, organic and eco-friendly processing for global markets.</p>
@@ -151,7 +151,7 @@ function Footer(){
       <div><h4>Company</h4><Link to="/about">Our Story</Link><Link to="/products">Products</Link><Link to="/certificates">Certifications</Link><Link to="/contact">Contact</Link></div>
       <div><h4>Headquarters</h4><p>Negombo, Sri Lanka</p><p><a href="tel:+94117090222">+94 11 709 0222</a></p><p><a href="tel:+94707779787">+94 70 777 9787</a></p><p><a href="mailto:info@sunrich.org">info@sunrich.org</a></p></div>
     </div>
-    <div className="footer-bottom"><span>© 2026 Abey Marine (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
+    <div className="footer-bottom"><span>© 2024 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
   </footer>
 }
 
@@ -163,7 +163,7 @@ function ProductCard({p}){
   return <div className={"product-card "+(p.id===13?"selected":"")}>
     {p.tag&&<span className="sale">{p.tag}</span>}
     <Link to={`/products/${getProductSlug(p)}`} className="product-image"><img src={A+p.image} alt={p.name}/></Link>
-    <div className="product-quick-actions"><button aria-label={`Save ${p.name} to wishlist`} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button><button aria-label={`Quick view ${p.name}`} onClick={()=>window.dispatchEvent(new CustomEvent("sunrich:quickview",{detail:p}))}><Eye/></button></div>
+    <div className="product-quick-actions"><button className={wished?"is-wished":""} aria-label={`${wished?"Remove":"Add"} ${p.name} ${wished?"from":"to"} wishlist`} aria-pressed={wished} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button><button aria-label={`Quick view ${p.name}`} onClick={()=>window.dispatchEvent(new CustomEvent("sunrich:quickview",{detail:p}))}><Eye/></button></div>
     <div className="product-meta"><Link to={`/products/${getProductSlug(p)}`}><h3>{p.name}</h3></Link><div><b>{formatPrice(p.price)}</b><button className="mini-cart" title="Add to cart" aria-label={`Add ${p.name} to cart`} onClick={()=>addToCart(p)}><ShoppingBag size={15}/></button></div><span className="stars">★★★★<span>★</span></span></div>
   </div>
 }
@@ -176,13 +176,13 @@ export function Home(){
       <div><small>WELCOME TO SUN RICH PARADISE</small><h1>Pure. Natural.<br/>Sri Lankan Coconut Goodness.</h1><p>Manufacturer · Exporter · Supplier</p><p className="muted">Abey Marine (Pvt) Ltd is an eminent and leading manufacturer, exporter and supplier of Sun Rich Paradise Virgin Coconut Oil and other coconut products from Sri Lanka – the Paradise of the Indian Ocean.</p><Link className="btn" to="/products">Shop now <ArrowRight size={16}/></Link></div>
     </section>
     <section className="benefits">
-      <Benefit icon={<Truck/>} title="Strategic Location" text="Negombo, Coconut Triangle"/>
-      <Benefit icon={<Headphones/>} title="Export Ready" text="Bulk packing & private label"/>
-      <Benefit icon={<ShieldCheck/>} title="Certified Quality" text="Organic and eco-friendly sourcing" active/>
-      <Benefit icon={<Package/>} title="Reliable Supply" text="Port and airport access for global trade"/>
+      <Benefit id="location" icon={<Truck/>} title="Strategic Location" text="Negombo, Coconut Triangle" description="Based in the heart of Sri Lanka’s Coconut Triangle, close to coconut-growing communities."/>
+      <Benefit id="export" icon={<Headphones/>} title="Export Ready" text="Bulk packing & private label" description="Bulk packing and private-label options help us prepare orders for different market needs."/>
+      <Benefit id="quality" icon={<ShieldCheck/>} title="Certified Quality" text="Organic and eco-friendly sourcing" description="We focus on responsible sourcing and quality throughout our natural coconut product range."/>
+      <Benefit id="supply" icon={<Package/>} title="Reliable Supply" text="Port and airport access for global trade" description="Access to Colombo Port and the international airport supports efficient global shipments."/>
     </section>
     <section className="trust section">
-      <div className="collage"><img src={A+"farmer-1.jpg"}/><img src={A+"farmer-2.jpg"}/></div>
+      <div className="collage"><img src={A+encodeURIComponent("download (4).jpeg")} alt="Coconut palms and Sri Lankan countryside"/><img src={A+encodeURIComponent("Fresh Coconuts & Island Vibes_ A Sunny Tropical Beach Picnic.jpeg")} alt="Fresh coconuts on a tropical beach"/></div>
       <div><h2>Trusted Sri Lankan<br/>Coconut Products</h2>
         <p>Natural ingredients from the heart of the coconut triangle.</p><p className="muted">Sun Rich Paradise Virgin Coconut Oil manufacturing facility is advantageously positioned in Negombo, one of the most prominent areas of the coconut triangle, with easy access to coconut plantations, the Colombo Port and the International Airport.</p>
         <p>Committed to quality and sustainability.</p><p className="muted">We produce organic, natural and export-oriented coconut products, including Virgin Coconut Oil, Coconut Flour, Coconut Chips, Coconut Milk, Coconut Cream and related value-added products while supporting responsible agriculture and eco-friendly manufacturing practices.</p>
@@ -191,16 +191,20 @@ export function Home(){
     </section>
     <section className="stats"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></section>
     <section className="section featured"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></section>
-    <section className="testimonials"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews">←</button><button aria-label="Next reviews">→</button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><b>{name}</b><small>Customer</small><span className="stars">★★★★★</span></article>)}</div></section>
+    <section className="testimonials"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews"><ArrowLeft size={14}/></button><button aria-label="Next reviews"><ArrowRight size={14}/></button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></section>
     <section className="contact-strip"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></section>
   </Layout>
 }
 
-function Benefit({icon,title,text,active}){return <div className={active?"active":""}><span>{icon}</span><b>{title}</b><small>{text}</small></div>}
+function Benefit({id,icon,title,text,description}){return <div><div className="benefit-button" tabIndex={0} role="group" aria-describedby={`benefit-${id}-description`}><span>{icon}</span><b>{title}</b><small>{text}</small></div><p className="benefit-description" id={`benefit-${id}-description`}>{description}</p></div>}
 
 export function ProductsPage(){
   const [quick,setQuick]=useState(null);
   const [currentPage,setCurrentPage]=useState(1);
+  const [minimumPrice,setMinimumPrice]=useState(0);
+  const [maximumPrice,setMaximumPrice]=useState(50);
+  const [minimumRating,setMinimumRating]=useState(null);
+  const [selectedTags,setSelectedTags]=useState([]);
   const router=useRouter();
   const category=typeof router.query.category==="string"?router.query.category:"All Products";
   const setCategory=value=>{
@@ -215,22 +219,45 @@ export function ProductsPage(){
     return ()=>window.removeEventListener("sunrich:quickview",openQuickView);
   },[]);
   const matchesCategory=p=>category==="All Products"||p.categories.includes(category);
-  const visibleProducts=PRODUCTS.filter(p=>matchesCategory(p)&&p.name.toLowerCase().includes(query.trim().toLowerCase())).sort((a,b)=>sort==="name"?a.name.localeCompare(b.name):a.id-b.id);
+  const visibleProducts=PRODUCTS.filter(p=>matchesCategory(p)&&p.name.toLowerCase().includes(query.trim().toLowerCase())&&p.price>=minimumPrice&&p.price<=maximumPrice&&(minimumRating===null||(p.rating??5)>=minimumRating)).sort((a,b)=>sort==="name"?a.name.localeCompare(b.name):a.id-b.id);
   const pageSize=15;
   const pageCount=Math.ceil(visibleProducts.length/pageSize);
   const pageProducts=visibleProducts.slice((currentPage-1)*pageSize,currentPage*pageSize);
   const changeSearch=value=>{setQuery(value);setCurrentPage(1)};
   const changeSort=value=>{setSort(value);setCurrentPage(1)};
+  const toggleTag=tag=>setSelectedTags(tags=>tags.includes(tag)?tags.filter(item=>item!==tag):[...tags,tag]);
   const goToPage=page=>setCurrentPage(Math.min(Math.max(page,1),pageCount));
   return <Layout>
-    <section className="section catalog-page"><aside className="filter-sidebar"><button className="filter-pill">Filter <Menu size={16}/></button><h3>All Categories <ChevronDown size={16}/></h3>{PRODUCT_CATEGORIES.map(x=><button className={"filter-category "+(category===x?"cat-active":"")} key={x} onClick={()=>setCategory(x)}><i/>{x}<small>({x==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.categories.includes(x)).length})</small></button>)}<hr/><h3>Export Supply <ChevronDown size={16}/></h3><p className="filter-caption">Wholesale and export orders welcome.</p><hr/><h3>Popular Tag <ChevronDown size={16}/></h3><div className="tag-list">{["Organic","Natural","Sri Lankan","Vegan","Gluten Free","Non GMO","Coconut Based","Export Quality"].map((x,i)=><button className={i===1?"tag-active":""} key={x}>{x}</button>)}</div></aside><main className="catalog-results"><div className="catalog-toolbar"><div className="sort-control"><span>Sort by:</span><select aria-label="Sort products" value={sort} onChange={e=>changeSort(e.target.value)}><option value="featured">Catalog order</option><option value="name">Name: A to Z</option></select></div><form className="catalog-search" onSubmit={e=>e.preventDefault()}><Search size={16}/><input aria-label="Search products" placeholder="Search" value={query} onChange={e=>changeSearch(e.target.value)}/><button>Search</button></form><span className="results-count">{visibleProducts.length} Results Found</span></div>{visibleProducts.length?<><div className="products-grid catalog-grid">{pageProducts.map(p=><ProductCard p={p} key={p.id}/>)}</div>{pageCount>1&&<nav className="pagination" aria-label="Product pages"><button aria-label="Previous page" disabled={currentPage===1} onClick={()=>goToPage(currentPage-1)}>‹</button>{Array.from({length:pageCount},(_,index)=>index+1).map(page=><button key={page} className={currentPage===page?"page-active":""} aria-current={currentPage===page?"page":undefined} onClick={()=>goToPage(page)}>{page}</button>)}<button aria-label="Next page" disabled={currentPage===pageCount} onClick={()=>goToPage(currentPage+1)}>›</button></nav>}</>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
-    {quick&&<Modal onClose={()=>setQuick(null)}><QuickView p={quick}/></Modal>}
+    <section className="section catalog-page"><aside className="filter-sidebar"><button className="filter-pill">Filter <SlidersHorizontal size={14}/></button><h3>All Categories <ChevronDown className="filter-chevron" size={15}/></h3>{PRODUCT_CATEGORIES.map(x=><button className={"filter-category "+(category===x?"cat-active":"")} key={x} onClick={()=>setCategory(x)}><i/>{x}<small>({x==="All Products"?PRODUCTS.length:PRODUCTS.filter(p=>p.categories.includes(x)).length})</small></button>)}<hr/><h3>Price <ChevronDown className="filter-chevron" size={15}/></h3><div className="price-filter"><div className="price-range" style={{"--price-start":`${minimumPrice/50*100}%`,"--price-end":`${maximumPrice/50*100}%`}}><input type="range" min="0" max="50" value={minimumPrice} aria-label="Minimum product price" onChange={event=>{const value=Math.min(Number(event.target.value),maximumPrice);setMinimumPrice(value);setCurrentPage(1)}}/><input type="range" min="0" max="50" value={maximumPrice} aria-label="Maximum product price" onChange={event=>{const value=Math.max(Number(event.target.value),minimumPrice);setMaximumPrice(value);setCurrentPage(1)}}/></div><small>Price: {formatPrice(minimumPrice)} - {formatPrice(maximumPrice)}</small></div><hr/><h3>Rating <ChevronDown className="filter-chevron" size={15}/></h3><div className="rating-options">{[{value:5,label:"5.0"},{value:4,label:"4.0 & up"},{value:3,label:"3.0 & up"},{value:2,label:"2.0 & up"},{value:1,label:"1.0 & up"}].map(option=><label className="rating-filter" key={option.value}><input type="radio" name="product-rating" checked={minimumRating===option.value} onChange={()=>{setMinimumRating(option.value);setCurrentPage(1)}}/><span aria-hidden="true">★★★★★</span><small>{option.label}</small></label>)}</div><hr/><h3>Popular Tag <ChevronDown className="filter-chevron" size={15}/></h3><div className="tag-list">{["Organic","Natural","Sri Lankan","Vegan","Gluten Free","Non GMO","Coconut Based","Export Quality"].map(x=><button type="button" className={selectedTags.includes(x)?"tag-active":""} aria-pressed={selectedTags.includes(x)} key={x} onClick={()=>toggleTag(x)}>{x}</button>)}</div></aside><main className="catalog-results"><div className="catalog-toolbar"><div className="sort-control"><span>Sort by:</span><select aria-label="Sort products" value={sort} onChange={e=>changeSort(e.target.value)}><option value="featured">Catalog order</option><option value="name">Name: A to Z</option></select></div><form className="catalog-search" onSubmit={e=>e.preventDefault()}><Search size={16}/><input aria-label="Search products" placeholder="Search" value={query} onChange={e=>changeSearch(e.target.value)}/><button>Search</button></form><span className="results-count">{visibleProducts.length} Results Found</span></div>{visibleProducts.length?<><div className="products-grid catalog-grid">{pageProducts.map(p=><ProductCard p={p} key={p.id}/>)}</div>{pageCount>1&&<nav className="pagination" aria-label="Product pages"><button aria-label="Previous page" disabled={currentPage===1} onClick={()=>goToPage(currentPage-1)}>‹</button>{Array.from({length:pageCount},(_,index)=>index+1).map(page=><button key={page} className={currentPage===page?"page-active":""} aria-current={currentPage===page?"page":undefined} onClick={()=>goToPage(page)}>{page}</button>)}<button aria-label="Next page" disabled={currentPage===pageCount} onClick={()=>goToPage(currentPage+1)}>›</button></nav>}</>:<Empty title="No products found" text="Try another search or adjust your filters."/>}</main></section>
+    {quick&&<Modal className="quickview-modal" onClose={()=>setQuick(null)}><QuickView p={quick}/></Modal>}
   </Layout>
 }
 
 function PageTitle({title,crumb}){return <div className="page-title"><div><Link to="/">Home</Link><ChevronRight size={14}/><span>{crumb}</span></div><h1>{title}</h1></div>}
 
-function QuickView({p}){const {addToCart}=useApp();const [qty,setQty]=useState(1);return <div className="quickview"><img src={A+p.image} alt={p.name}/><div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2><h3>{formatPrice(p.price)}</h3><p>{p.description}</p><div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>Math.min(999,q+1))}><Plus size={15}/></button></div><button className="btn" onClick={()=>addToCart(p,qty)}>Add to cart <ShoppingBag size={16}/></button></div></div>}
+function QuickView({p}){
+  const {addToCart,toggleWishlist,wishlist}=useApp();
+  const [qty,setQty]=useState(1);
+  const wished=wishlist.includes(p.id);
+  return <div className="quickview">
+    <div className="quickview-image"><img src={A+p.image} alt={p.name}/></div>
+    <div className="quickview-info">
+      <div className="quickview-heading">
+        <div><small>{p.category} · Sri Lanka</small><h2>{p.name}</h2></div>
+        <span className="quickview-stock">Export ready</span>
+      </div>
+      <div className="quickview-pricing"><b>{formatPrice(p.price)}</b><span>Price per item</span></div>
+      <div className="quickview-meta"><span><b>Brand:</b> Sun Rich Paradise</span><ShareItem product={p}/></div>
+      <p className="quickview-description">{p.description}</p>
+      <div className="quickview-buy">
+        <div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={15}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>Math.min(999,q+1))}><Plus size={15}/></button></div>
+        <button className="btn" onClick={()=>addToCart(p,qty)}>Add to cart <ShoppingBag size={16}/></button>
+        <button className={`detail-wish ${wished?"is-wished":""}`} aria-label={`${wished?"Remove":"Add"} ${p.name} ${wished?"from":"to"} wishlist`} aria-pressed={wished} onClick={()=>toggleWishlist(p.id)}><Heart fill={wished?"currentColor":"none"}/></button>
+      </div>
+      <div className="quickview-taxonomy"><p><b>Category:</b> {p.category}</p><p><b>Origin:</b> Sri Lanka</p></div>
+    </div>
+  </div>
+}
 
 async function copyShareLink(){
   const url=window.location.href;
@@ -334,7 +361,7 @@ export function ProductDetail({slug}){
         <div className="detail-buy">
           <div className="qty"><button aria-label="Decrease quantity" onClick={()=>setQty(q=>Math.max(1,q-1))}><Minus size={14}/></button><span>{qty}</span><button aria-label="Increase quantity" onClick={()=>setQty(q=>q+1)}><Plus size={14}/></button></div>
           <button className="btn" onClick={()=>addToCart(p,qty)}>Add to cart <ShoppingBag size={15}/></button>
-          <button className="detail-wish" aria-label="Add to wishlist" onClick={()=>toggleWishlist(p.id)}><Heart fill={wishlist.includes(p.id)?"currentColor":"none"}/></button>
+          <button className={`detail-wish ${wishlist.includes(p.id)?"is-wished":""}`} aria-label={`${wishlist.includes(p.id)?"Remove":"Add"} ${p.name} ${wishlist.includes(p.id)?"from":"to"} wishlist`} aria-pressed={wishlist.includes(p.id)} onClick={()=>toggleWishlist(p.id)}><Heart fill={wishlist.includes(p.id)?"currentColor":"none"}/></button>
         </div>
         <div className="detail-taxonomy"><p><b>Category:</b> {p.category}</p><p><b>Product:</b> {p.name}</p></div>
       </div>
@@ -600,7 +627,7 @@ export function About(){return <><header className="about-header"><Link to="/" c
 export function NotFound(){return <Layout><section className="notfound"><img src={A+"404-illustration.png"} alt="404 — page not found"/><h1>Oops! page not found</h1><Link className="btn" to="/">Back to Home</Link></section></Layout>}
 
 function Empty({title,text}){return <div className="empty"><ShoppingBag/><h2>{title}</h2><p>{text}</p><Link className="btn" to="/products">Shop Products</Link></div>}
-function Modal({children,onClose}){return <div className="overlay" onClick={onClose}><div className="modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={onClose}><X/></button>{children}</div></div>}
+function Modal({children,onClose,className=""}){return <div className="overlay" onClick={onClose}><div className={`modal ${className}`} onClick={e=>e.stopPropagation()}><button className="modal-close" aria-label="Close dialog" onClick={onClose}><X/></button>{children}</div></div>}
 function Newsletter({close}){const [subscribed,setSubscribed]=useState(false);return <Modal onClose={close}><button className="newsletter-close" aria-label="Close newsletter" onClick={close}><X/></button><form className="newsletter-modal" onSubmit={e=>{e.preventDefault();setSubscribed(true)}}><img src={A+"hero-basket.jpg"} alt="Fresh Sri Lankan produce"/><div><h2>Subscribe to Our<br/>Newsletter</h2><p>Stay updated with Sun Rich! Get the latest product updates, healthy food tips, special offers, and exclusive discounts delivered straight to your inbox.</p><label className="newsletter-input"><input type="email" placeholder="Enter your email" aria-label="Your email address" required/><button className="btn">Subscribe</button></label><label className="newsletter-skip"><input type="checkbox"/> Do not show this window</label>{subscribed&&<p className="form-status" role="status">You're on the list for Sun Rich updates.</p>}</div></form></Modal>}
 
 function CartOverlay(){const {cartOpen,closeCart}=useApp(); return cartOpen?<CartDrawer close={closeCart}/>:null}
