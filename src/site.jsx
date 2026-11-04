@@ -9,6 +9,7 @@ import {
 
 const A="/assets/";
 const PRODUCT_PRICE=14.99;
+const TESTIMONIAL_NAMES=["Robert Fox","Dianne Russell","Eleanor Pena"];
 const formatPrice=amount=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(amount);
 
 function WhatsAppIcon(){
@@ -170,6 +171,31 @@ function ProductCard({p}){
 
 export function Home(){
   const {openNewsletter}=useApp();
+  const [testimonialIndex,setTestimonialIndex]=useState(0);
+
+  useEffect(()=>{
+    const mobile=window.matchMedia("(max-width: 650px)");
+    const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer;
+    const syncTimer=()=>{
+      window.clearInterval(timer);
+      if(mobile.matches&&!reducedMotion.matches){
+        timer=window.setInterval(()=>setTestimonialIndex(index=>(index+1)%TESTIMONIAL_NAMES.length),5000);
+      }
+    };
+    syncTimer();
+    mobile.addEventListener("change",syncTimer);
+    reducedMotion.addEventListener("change",syncTimer);
+    return ()=>{
+      window.clearInterval(timer);
+      mobile.removeEventListener("change",syncTimer);
+      reducedMotion.removeEventListener("change",syncTimer);
+    };
+  },[]);
+
+  const changeTestimonial=direction=>setTestimonialIndex(index=>(index+direction+TESTIMONIAL_NAMES.length)%TESTIMONIAL_NAMES.length);
+  const visibleTestimonials=TESTIMONIAL_NAMES.map((_,index)=>TESTIMONIAL_NAMES[(index+testimonialIndex)%TESTIMONIAL_NAMES.length]);
+
   return <Layout>
     <section className="hero">
       <div className="site-container hero-container">
@@ -199,7 +225,7 @@ export function Home(){
     </section>
     <section className="stats"><div className="site-container stats-grid"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></div></section>
     <section className="section featured"><div className="site-container featured-inner"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></div></section>
-    <section className="testimonials"><div className="site-container testimonial-inner"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews"><ArrowLeft size={14}/></button><button aria-label="Next reviews"><ArrowRight size={14}/></button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></div></section>
+    <section className="testimonials"><div className="site-container testimonial-inner"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button type="button" aria-label="Previous testimonial" onClick={()=>changeTestimonial(-1)}><ArrowLeft size={16}/></button><button type="button" aria-label="Next testimonial" onClick={()=>changeTestimonial(1)}><ArrowRight size={16}/></button></div></div><div className="testimonial-grid">{visibleTestimonials.map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></div></section>
     <section className="contact-strip"><div className="site-container contact-grid"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></div></section>
   </Layout>
 }
