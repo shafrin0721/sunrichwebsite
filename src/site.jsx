@@ -172,31 +172,48 @@ export function Home(){
   const {openNewsletter}=useApp();
   return <Layout>
     <section className="hero">
-      <img src={A+"hero-basket.jpg"} />
-      <div><small>WELCOME TO SUN RICH PARADISE</small><h1>Pure. Natural.<br/>Sri Lankan Coconut Goodness.</h1><p>Manufacturer · Exporter · Supplier</p><p className="muted">Abey Marine (Pvt) Ltd is an eminent and leading manufacturer, exporter and supplier of Sun Rich Paradise Virgin Coconut Oil and other coconut products from Sri Lanka – the Paradise of the Indian Ocean.</p><Link className="btn" to="/products">Shop now <ArrowRight size={16}/></Link></div>
+      <div className="site-container hero-container">
+        <img src={A+"hero-basket.jpg"} />
+        <div><small>WELCOME TO SUN RICH PARADISE</small><h1>Pure. Natural.<br/>Sri Lankan Coconut Goodness.</h1><p>Manufacturer · Exporter · Supplier</p><p className="muted">Abey Marine (Pvt) Ltd is an eminent and leading manufacturer, exporter and supplier of Sun Rich Paradise Virgin Coconut Oil and other coconut products from Sri Lanka – the Paradise of the Indian Ocean.</p><Link className="btn" to="/products">Shop now <ArrowRight size={16}/></Link></div>
+      </div>
     </section>
     <section className="benefits">
-      <Benefit id="location" icon={<Truck/>} title="Strategic Location" text="Negombo, Coconut Triangle" description="Based in the heart of Sri Lanka’s Coconut Triangle, close to coconut-growing communities."/>
-      <Benefit id="export" icon={<Headphones/>} title="Export Ready" text="Bulk packing & private label" description="Bulk packing and private-label options help us prepare orders for different market needs."/>
-      <Benefit id="quality" icon={<ShieldCheck/>} title="Certified Quality" text="Organic and eco-friendly sourcing" description="We focus on responsible sourcing and quality throughout our natural coconut product range."/>
-      <Benefit id="supply" icon={<Package/>} title="Reliable Supply" text="Port and airport access for global trade" description="Access to Colombo Port and the international airport supports efficient global shipments."/>
+      <div className="site-container">
+        <div className="benefit-grid">
+          <Benefit id="location" icon={<Truck/>} title="Strategic Location" text="Negombo, Coconut Triangle" description="Based in the heart of Sri Lanka’s Coconut Triangle, close to coconut-growing communities."/>
+          <Benefit id="export" icon={<Headphones/>} title="Export Ready" text="Bulk packing & private label" description="Bulk packing and private-label options help us prepare orders for different market needs."/>
+          <Benefit id="quality" icon={<ShieldCheck/>} title="Certified Quality" text="Organic and eco-friendly sourcing" description="We focus on responsible sourcing and quality throughout our natural coconut product range."/>
+          <Benefit id="supply" icon={<Package/>} title="Reliable Supply" text="Port and airport access for global trade" description="Access to Colombo Port and the international airport supports efficient global shipments."/>
+        </div>
+      </div>
     </section>
     <section className="trust section">
-      <div className="collage"><img src={A+encodeURIComponent("download (4).jpeg")} alt="Coconut palms and Sri Lankan countryside"/><img src={A+encodeURIComponent("Fresh Coconuts & Island Vibes_ A Sunny Tropical Beach Picnic.jpeg")} alt="Fresh coconuts on a tropical beach"/></div>
-      <div><h2>Trusted Sri Lankan<br/>Coconut Products</h2>
+      <div className="site-container trust-grid">
+        <div className="collage"><img src={A+encodeURIComponent("download (4).jpeg")} alt="Coconut palms and Sri Lankan countryside"/><img src={A+encodeURIComponent("Fresh Coconuts & Island Vibes_ A Sunny Tropical Beach Picnic.jpeg")} alt="Fresh coconuts on a tropical beach"/></div>
+        <div><h2>Trusted Sri Lankan<br/>Coconut Products</h2>
         <p>Natural ingredients from the heart of the coconut triangle.</p><p className="muted">Sun Rich Paradise Virgin Coconut Oil manufacturing facility is advantageously positioned in Negombo, one of the most prominent areas of the coconut triangle, with easy access to coconut plantations, the Colombo Port and the International Airport.</p>
         <p>Committed to quality and sustainability.</p><p className="muted">We produce organic, natural and export-oriented coconut products, including Virgin Coconut Oil, Coconut Flour, Coconut Chips, Coconut Milk, Coconut Cream and related value-added products while supporting responsible agriculture and eco-friendly manufacturing practices.</p>
         <Link className="btn" to="/products">Shop Now <ArrowRight size={16}/></Link>
+        </div>
       </div>
     </section>
-    <section className="stats"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></section>
-    <section className="section featured"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></section>
-    <section className="testimonials"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews"><ArrowLeft size={14}/></button><button aria-label="Next reviews"><ArrowRight size={14}/></button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></section>
-    <section className="contact-strip"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></section>
+    <section className="stats"><div className="site-container stats-grid"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></div></section>
+    <section className="section featured"><div className="site-container featured-inner"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></div></section>
+    <section className="testimonials"><div className="site-container testimonial-inner"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button aria-label="Previous reviews"><ArrowLeft size={14}/></button><button aria-label="Next reviews"><ArrowRight size={14}/></button></div></div><div className="testimonial-grid">{["Robert Fox","Dianne Russell","Eleanor Pena"].map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></div></section>
+    <section className="contact-strip"><div className="site-container contact-grid"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></div></section>
   </Layout>
 }
 
-function Benefit({id,icon,title,text,description}){return <div><div className="benefit-button" tabIndex={0} role="group" aria-describedby={`benefit-${id}-description`}><span>{icon}</span><b>{title}</b><small>{text}</small></div><p className="benefit-description" id={`benefit-${id}-description`}>{description}</p></div>}
+function Benefit({id,icon,title,text,description}){
+  const [expanded,setExpanded]=useState(false);
+  const descriptionId=`benefit-${id}-description`;
+  return <div className={expanded?"is-expanded":""}>
+    <button className="benefit-button" type="button" aria-expanded={expanded} aria-controls={descriptionId} onClick={()=>setExpanded(value=>!value)}>
+      <span>{icon}</span><b>{title}</b><small>{text}</small>
+    </button>
+    <p className="benefit-description" id={descriptionId} hidden={!expanded}>{description}</p>
+  </div>
+}
 
 export function ProductsPage(){
   const [quick,setQuick]=useState(null);

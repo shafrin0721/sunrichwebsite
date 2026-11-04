@@ -73,7 +73,7 @@
   align-items: center;
   gap: 4px;
   color: #414844;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .nav-dropdown > a.active {
@@ -104,7 +104,7 @@
   padding: 10px 12px;
   border-radius: 3px;
   color: #414844;
-  font-size: 13px;
+  font-size: 16px;
   white-space: nowrap;
 }
 
@@ -179,7 +179,7 @@
 .form-status {
   margin-top: 14px;
   color: var(--green);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .overlay {
@@ -340,7 +340,7 @@
 .cart-page-heading small,
 .checkout-heading small {
   color: var(--green);
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: .12em;
 }
@@ -358,7 +358,7 @@
   align-items: center;
   gap: 8px;
   color: var(--green);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .cart-layout {
@@ -388,7 +388,7 @@
   grid-template-columns: minmax(200px, 1fr) 150px 140px 150px 36px;
   border-bottom: 1px solid var(--line);
   color: #777;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -418,7 +418,7 @@
 }
 
 .cart-product b {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -426,7 +426,7 @@
 .cart-price,
 .cart-subtotal {
   color: #777;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .cart-subtotal {
@@ -458,7 +458,7 @@
 .cart-quantity > span {
   border-right: 1px solid var(--line);
   border-left: 1px solid var(--line);
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .cart-remove {
@@ -489,7 +489,7 @@
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
   color: #555;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .cart-summary-row b {
@@ -502,7 +502,7 @@
 .cart-summary > small {
   margin: 0;
   color: #777;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.7;
 }
 
@@ -544,7 +544,7 @@
 .checkout-page .billing-notes small {
   display: inline;
   color: #999;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-notes textarea {
@@ -560,7 +560,7 @@
 
 .checkout-page .order-summary > p {
   color: #777;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.7;
 }
 
@@ -636,7 +636,7 @@
 
   .cart-line .cart-price,
   .cart-line .cart-subtotal {
-    font-size: 11px;
+    font-size: 16px;
   }
 
   .cart-line .cart-price::before,
@@ -645,7 +645,7 @@
     margin-bottom: 4px;
     color: #999;
     content: attr(data-label);
-    font-size: 10px;
+    font-size: 16px;
     text-transform: uppercase;
   }
 
@@ -714,7 +714,7 @@
 .checkout-page .billing-fields label {
   gap: 6px;
   color: #333;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-fields label > span {
@@ -729,7 +729,7 @@
 .checkout-page .billing-fields label > span small {
   display: inline;
   color: #999;
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-fields input,
@@ -737,7 +737,7 @@
   min-width: 0;
   height: 43px;
   padding: 0 11px;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-fields select {
@@ -756,7 +756,7 @@
   gap: 8px;
   margin: 16px 0 24px;
   color: #444;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-check input,
@@ -781,7 +781,7 @@
 
 .checkout-page .billing-notes {
   color: #333;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .billing-notes textarea {
@@ -809,7 +809,7 @@
   grid-template-columns: 44px minmax(0, 1fr) auto;
   gap: 8px;
   border-bottom: 1px solid var(--line);
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .checkout-page .summary-product img {
@@ -820,14 +820,14 @@
 .checkout-page .summary-product b {
   grid-column: auto;
   color: #222;
-  font-size: 11px;
+  font-size: 16px;
   text-align: right;
   white-space: nowrap;
 }
 
 .checkout-page .summary-line {
   padding: 10px 0;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .summary-total {
@@ -849,7 +849,7 @@
   min-height: 24px;
   align-items: center;
   margin: 5px 0;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .checkout-page .payment-details {
@@ -858,7 +858,7 @@
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #f8faf8;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
