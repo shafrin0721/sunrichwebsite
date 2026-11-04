@@ -4223,6 +4223,89 @@ body .stats > .stats-grid {
   margin-inline: max(16px, calc((100vw - var(--site-content-width)) / 2 + clamp(16px, 2.4vw, 32px)));
 }
 
+.footer-top {
+  display: block;
+  min-height: 0;
+  padding: clamp(36px, 4vw, 56px) 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.footer-grid > div {
+  grid-column: auto;
+}
+
+.footer-grid > div:not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-grid h4 {
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.footer-grid p,
+.footer-grid a:not(.footer-logo) {
+  line-height: 1.6;
+}
+
+.footer-grid > div:first-child > p {
+  margin: 16px 0 0;
+}
+
+.footer-grid > div:last-child {
+  gap: 0;
+}
+
+.footer-grid > div:last-child h4 {
+  margin-bottom: 8px;
+}
+
+.footer-grid > div:last-child p {
+  margin: 0;
+}
+
+.footer-grid .socials {
+  margin-top: 20px;
+}
+
+.footer-bottom {
+  display: block;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  border-top: 1px solid #ffffff12;
+  color: #a6b8af;
+  font-size: 16px;
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px clamp(20px, 2.4vw, 40px);
+}
+
+.footer-legal span {
+  white-space: nowrap;
+}
+
 .hero {
   display: block;
   padding-inline: 0;
@@ -4424,6 +4507,33 @@ body .stats > .site-container.stats-grid {
 
   .contact-grid > div:nth-child(n) {
     grid-column: 1;
+  }
+
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .footer-grid > div:nth-child(n) {
+    grid-column: 1;
+  }
+
+  .footer-grid > div:first-child > p {
+    max-width: 440px;
+  }
+
+  .footer-bottom-inner {
+    min-height: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    padding-block: 18px;
+  }
+
+  .footer-legal {
+    justify-content: flex-start;
+    gap: 8px 20px;
   }
 }
 

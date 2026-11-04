@@ -140,7 +140,7 @@ export function Header(){
 
 export function Footer(){
   return <footer>
-    <div className="footer-top">
+    <div className="footer-top"><div className="site-container footer-grid">
       <div><Link className="footer-logo" to="/" aria-label="Sun Rich home"><img src="/Sun-Rich-Paradise%20logo.png" alt=""/> <b>SUN RICH</b></Link><p>Manufacturer, exporter and supplier of premium Sri Lankan coconut products.<br/>Committed to natural, organic and eco-friendly processing for global markets.</p>
         <div className="socials">
           <a href="https://www.facebook.com/sunrichparadise/" target="_blank" rel="noreferrer" aria-label="Sun Rich on Facebook"><Facebook/></a>
@@ -150,8 +150,8 @@ export function Footer(){
       <div><h4>Product Line</h4><Link to="/products/virgin-coconut-oil">Virgin Coconut Oil</Link><Link to="/products/coconut-flour">Coconut Flour</Link><Link to="/products/coconut-chips">Coconut Chips</Link><Link to="/products/desiccated-coconut">Desiccated Coconut</Link><Link to="/products/coconut-milk">Coconut Milk</Link><Link to="/products/coconut-cream">Coconut Cream</Link></div>
       <div><h4>Company</h4><Link to="/about">Our Story</Link><Link to="/products">Products</Link><Link to="/certificates">Certifications</Link><Link to="/contact">Contact</Link></div>
       <div><h4>Headquarters</h4><p>Negombo, Sri Lanka</p><p><a href="tel:+94117090222">+94 11 709 0222</a></p><p><a href="tel:+94707779787">+94 70 777 9787</a></p><p><a href="mailto:info@sunrich.org">info@sunrich.org</a></p></div>
-    </div>
-    <div className="footer-bottom"><span>© 2024 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><span>Privacy Policy　　Terms of Trade　　Cookie Policy</span></div>
+    </div></div>
+    <div className="footer-bottom"><div className="site-container footer-bottom-inner"><span>© 2024 Sun Rich Organic Exports (Pvt) Ltd. All rights reserved.</span><nav className="footer-legal" aria-label="Legal information"><span>Privacy Policy</span><span>Terms of Trade</span><span>Cookie Policy</span></nav></div></div>
   </footer>
 }
 
