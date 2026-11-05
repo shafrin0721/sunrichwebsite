@@ -31,13 +31,17 @@ body {
 }
 
 .language-control select {
-  max-width: 90px;
-  padding: 3px 20px 3px 5px;
+  width: 112px;
+  max-width: 112px;
+  padding: 3px 5px;
   border: 0;
   background: transparent;
   color: inherit;
   font: inherit;
   cursor: pointer;
+  appearance: none;
+  text-align: center;
+  text-align-last: center;
 }
 
 .language-control select:focus-visible {
@@ -70,9 +74,18 @@ body {
 
 .navwrap nav a,
 .nav-dropdown > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   color: #777;
   font-size: 16px;
   white-space: nowrap;
+}
+
+.navwrap nav a svg,
+.nav-dropdown > a svg {
+  flex: 0 0 auto;
+  vertical-align: middle;
 }
 
 .navwrap nav a:first-child {
@@ -939,7 +952,8 @@ footer,
 }
 
 .sort-control select {
-  width: 150px;
+  width: 190px;
+  max-width: 100%;
   height: 34px;
   padding: 0 10px;
   border: 1px solid #ddd;
@@ -3728,7 +3742,7 @@ body:has(.notfound) .floating-cart {
   }
 
   .sort-control select {
-    width: min(150px, 38vw);
+    width: min(190px, 42vw);
     min-width: 0;
   }
 
@@ -4772,4 +4786,23 @@ body .stats > .site-container.stats-grid {
   font-variant-numeric: tabular-nums;
   line-height: 1;
   text-align: center;
+}
+
+@media (min-width: 1101px) {
+  html[lang="ta"] .navwrap,
+  html[lang="si"] .navwrap {
+    grid-template-columns: minmax(0, 1.6fr) auto minmax(0, 1fr);
+  }
+
+  html[lang="ta"] .navwrap nav,
+  html[lang="si"] .navwrap nav {
+    gap: clamp(8px, 0.8vw, 14px);
+  }
+
+  html[lang="ta"] .navwrap nav a,
+  html[lang="ta"] .nav-dropdown > a,
+  html[lang="si"] .navwrap nav a,
+  html[lang="si"] .nav-dropdown > a {
+    font-size: 14px;
+  }
 }
