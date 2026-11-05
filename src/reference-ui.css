@@ -25,6 +25,36 @@ body {
   align-items: center;
 }
 
+.language-control {
+  display: inline-flex;
+  align-items: center;
+}
+
+.language-control select {
+  max-width: 90px;
+  padding: 3px 20px 3px 5px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.language-control select:focus-visible {
+  outline: 2px solid #006c3b;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 .navwrap {
   height: 80px;
   display: grid;
@@ -606,7 +636,7 @@ footer,
 }
 
 .socials a[aria-label="Contact Sun Rich on WhatsApp"] svg {
-  fill: currentColor;
+  fill: #fff;
 }
 
 .footer-top p,
@@ -4667,7 +4697,7 @@ body .stats > .site-container.stats-grid {
 
 @keyframes topbar-marquee {
   from {
-    transform: translateX(calc(100vw - 24px));
+    transform: translateX(100vw);
   }
 
   to {
@@ -4695,6 +4725,28 @@ body .stats > .site-container.stats-grid {
 
   .testimonial-grid {
     animation: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .topbar {
+    position: relative;
+    justify-content: flex-end;
+  }
+
+  header .topbar span.locale {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 auto;
+    background: #edf4ef;
+  }
+
+  .topbar > span:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
   }
 }
 

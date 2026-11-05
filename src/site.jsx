@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useMemo, useState} from "react";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
+import {installTranslations} from "./localization";
 import {
   Search, Heart, ShoppingBag, UserRound, ChevronDown, MapPin, Phone, Menu, SlidersHorizontal, X,
   Truck, Headphones, ShieldCheck, Package, ArrowRight, ArrowLeft, Star, CheckCircle2,
@@ -69,12 +70,30 @@ const AppContext=createContext(null);
 function useApp(){return useContext(AppContext)}
 
 function AppProvider({children}){
+  const [language,setLanguageState]=useState("en");
   const [cart,setCart]=useState([]);
   const [cartReady,setCartReady]=useState(false);
   const [cartNotice,setCartNotice]=useState("");
   const [wishlist,setWishlist]=useState([]);
   const [cartOpen,setCartOpen]=useState(false);
   const [newsletterOpen,setNewsletterOpen]=useState(false);
+  useEffect(()=>{
+    try{
+      const savedLanguage=window.localStorage.getItem("sunrich:language");
+      if(savedLanguage==="en"||savedLanguage==="si"||savedLanguage==="ta")setLanguageState(savedLanguage);
+    }catch(error){
+      console.error("Could not load the saved language preference.",error);
+    }
+  },[]);
+  const setLanguage=nextLanguage=>{
+    if(nextLanguage!=="en"&&nextLanguage!=="si"&&nextLanguage!=="ta")return;
+    setLanguageState(nextLanguage);
+    try{
+      window.localStorage.setItem("sunrich:language",nextLanguage);
+    }catch(error){
+      console.error("Could not save the language preference.",error);
+    }
+  };
   useEffect(()=>{
     try{
       const saved=window.localStorage.getItem("sunrich:cart");
@@ -112,12 +131,18 @@ function AppProvider({children}){
   const removeFromCart=id=>setCart(c=>c.filter(x=>x.id!==id));
   const setQty=(id,qty)=>setCart(c=>qty<1?c.filter(x=>x.id!==id):c.map(x=>x.id===id?{...x,qty:Math.min(999,Math.floor(qty))}:x));
   const toggleWishlist=id=>setWishlist(w=>w.includes(id)?w.filter(x=>x!==id):[...w,id]);
-  const value=useMemo(()=>({cart,cartNotice,wishlist,addToCart,removeFromCart,setQty,toggleWishlist,cartOpen,openCart:()=>setCartOpen(true),closeCart:()=>setCartOpen(false),newsletterOpen,openNewsletter:()=>setNewsletterOpen(true),closeNewsletter:()=>setNewsletterOpen(false)}),[cart,cartNotice,wishlist,cartOpen,newsletterOpen]);
+  const value=useMemo(()=>({cart,cartNotice,wishlist,addToCart,removeFromCart,setQty,toggleWishlist,cartOpen,openCart:()=>setCartOpen(true),closeCart:()=>setCartOpen(false),newsletterOpen,openNewsletter:()=>setNewsletterOpen(true),closeNewsletter:()=>setNewsletterOpen(false),language,setLanguage}),[cart,cartNotice,wishlist,cartOpen,newsletterOpen,language]);
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
 export function SiteShell({children}) {
-  return <AppProvider><>{children}<SiteOverlays/></></AppProvider>
+  return <AppProvider><LocalizationEffects/>{children}<SiteOverlays/></AppProvider>
+}
+
+function LocalizationEffects(){
+  const {language}=useApp();
+  useEffect(()=>installTranslations(language),[language]);
+  return null;
 }
 
 function SiteOverlays() {
@@ -126,11 +151,11 @@ function SiteOverlays() {
 }
 
 export function Header(){
-  const {cart,wishlist,openCart}=useApp();
+  const {cart,wishlist,openCart,language,setLanguage}=useApp();
   const [mobile,setMobile]=useState(false);
   const cartCount=cart.reduce((total,item)=>total+item.qty,0);
   return <header>
-    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale">Eng <ChevronDown size={11}/>　 LKR <ChevronDown size={11}/></span></div>
+    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale"><label className="language-control"><span className="visually-hidden">Language</span><select aria-label="Language" value={language} onChange={event=>setLanguage(event.target.value)}><option value="en">English</option><option value="si">සිංහල</option><option value="ta">தமிழ்</option></select></label><span aria-hidden="true">LKR</span></span></div>
     <div className="navwrap">
       <button className="mobile-menu" onClick={()=>setMobile(!mobile)}><Menu/></button>
       <nav className={mobile?"mobile-open":""}>
