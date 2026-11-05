@@ -155,7 +155,7 @@ export function Header(){
   const [mobile,setMobile]=useState(false);
   const cartCount=cart.reduce((total,item)=>total+item.qty,0);
   return <header>
-    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale"><label className="language-control"><span className="visually-hidden">Language</span><select aria-label="Language" value={language} onChange={event=>setLanguage(event.target.value)}><option value="en">English</option><option value="si">සිංහල</option><option value="ta">தமிழ்</option></select></label><span aria-hidden="true">LKR</span></span></div>
+    <div className="topbar"><span><MapPin size={13}/> Manufacturer &amp; exporter · Negombo, Sri Lanka</span><span className="locale"><label className="language-control"><span className="visually-hidden">Language</span><select aria-label="Language" value={language} onChange={event=>setLanguage(event.target.value)}><option value="en">English</option><option value="si">සිංහල</option><option value="ta">தமிழ்</option></select><ChevronDown className="language-chevron" size={13} aria-hidden="true"/></label><span aria-hidden="true">LKR</span></span></div>
     <div className="navwrap">
       <button className="mobile-menu" onClick={()=>setMobile(!mobile)}><Menu/></button>
       <nav className={mobile?"mobile-open":""}>

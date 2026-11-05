@@ -26,6 +26,7 @@ body {
 }
 
 .language-control {
+  position: relative;
   display: inline-flex;
   align-items: center;
 }
@@ -33,7 +34,7 @@ body {
 .language-control select {
   width: 112px;
   max-width: 112px;
-  padding: 3px 5px;
+  padding: 3px 22px 3px 5px;
   border: 0;
   background: transparent;
   color: inherit;
@@ -42,6 +43,16 @@ body {
   appearance: none;
   text-align: center;
   text-align-last: center;
+}
+
+.language-control .language-chevron {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  width: 13px;
+  height: 13px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .language-control select:focus-visible {
