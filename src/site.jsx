@@ -9,7 +9,20 @@ import {
 
 const A="/assets/";
 const PRODUCT_PRICE=14.99;
-const TESTIMONIAL_NAMES=["Robert Fox","Dianne Russell","Eleanor Pena"];
+const TESTIMONIALS=[
+  {name:"Sarah Fernando",location:"Colombo, Sri Lanka",quote:"Sunrich Virgin Coconut Oil has become a regular part of my daily routine. I appreciate its natural quality and freshness. It is a product I can confidently recommend to my family."},
+  {name:"Mohamed Rizwan",location:"Kandy, Sri Lanka",quote:"I have been using Sunrich coconut products for a while, and the quality has been impressive. The products are well-packaged, reliable and worth purchasing."},
+  {name:"Nadeesha Perera",location:"Galle, Sri Lanka",quote:"Sunrich Organic Coconut Flour is a great addition to my baking. It gives my recipes a lovely natural flavour, and I am happy to have found a quality Sri Lankan product."},
+  {name:"Tharindu Jayasinghe",location:"Negombo, Sri Lanka",quote:"I really enjoy Sunrich Natural Coconut Chips. They are delicious, convenient and make a great snack. I would definitely recommend them."},
+  {name:"Fathima Ameen",location:"Dehiwala, Sri Lanka",quote:"I love choosing natural products for my family. Sunrich has a good range of coconut-based products, and the quality has made me a returning customer."},
+  {name:"Kasun Wijesinghe",location:"Kurunegala, Sri Lanka",quote:"We were looking for a dependable supplier of coconut products, and Sunrich has been a good choice. Their product quality and communication have made our experience positive."},
+  {name:"Ishara Gunawardena",location:"Matara, Sri Lanka",quote:"Sunrich Coconut Milk has become one of my kitchen essentials. It is convenient to use and works wonderfully in traditional Sri Lankan dishes."},
+  {name:"Rizwana Haniffa",location:"Colombo, Sri Lanka",quote:"I appreciate the variety of products offered by Sunrich. Their coconut products are suitable for everyday use, and I particularly like the attention given to packaging."},
+  {name:"Dinesh Perera",location:"Anuradhapura, Sri Lanka",quote:"Sunrich Desiccated Coconut is a useful ingredient for both home cooking and baking. The product quality has met my expectations."},
+  {name:"Thilini Madushika",location:"Nuwara Eliya, Sri Lanka",quote:"Sunrich Coconut Chips are one of my favourite snacks. I enjoy the natural coconut taste and the convenience of having them ready to enjoy."},
+  {name:"Abdul Rahman",location:"Batticaloa, Sri Lanka",quote:"As a business customer, I value consistency and dependable service. Sunrich has provided a positive experience, and I look forward to continuing our business relationship."},
+  {name:"Chamara Silva",location:"Jaffna, Sri Lanka",quote:"I am pleased with the quality of Sunrich products. It is great to see a Sri Lankan brand offering coconut products that meet everyday customer needs."},
+];
 const formatPrice=amount=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(amount);
 
 function WhatsAppIcon(){
@@ -174,27 +187,24 @@ export function Home(){
   const [testimonialIndex,setTestimonialIndex]=useState(0);
 
   useEffect(()=>{
-    const mobile=window.matchMedia("(max-width: 650px)");
     const reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
     let timer;
     const syncTimer=()=>{
       window.clearInterval(timer);
-      if(mobile.matches&&!reducedMotion.matches){
-        timer=window.setInterval(()=>setTestimonialIndex(index=>(index+1)%TESTIMONIAL_NAMES.length),5000);
+      if(!reducedMotion.matches){
+        timer=window.setInterval(()=>setTestimonialIndex(index=>(index+1)%TESTIMONIALS.length),10000);
       }
     };
     syncTimer();
-    mobile.addEventListener("change",syncTimer);
     reducedMotion.addEventListener("change",syncTimer);
     return ()=>{
       window.clearInterval(timer);
-      mobile.removeEventListener("change",syncTimer);
       reducedMotion.removeEventListener("change",syncTimer);
     };
   },[]);
 
-  const changeTestimonial=direction=>setTestimonialIndex(index=>(index+direction+TESTIMONIAL_NAMES.length)%TESTIMONIAL_NAMES.length);
-  const visibleTestimonials=TESTIMONIAL_NAMES.map((_,index)=>TESTIMONIAL_NAMES[(index+testimonialIndex)%TESTIMONIAL_NAMES.length]);
+  const changeTestimonial=direction=>setTestimonialIndex(index=>(index+direction+TESTIMONIALS.length)%TESTIMONIALS.length);
+  const visibleTestimonials=Array.from({length:3},(_,offset)=>TESTIMONIALS[(testimonialIndex+offset)%TESTIMONIALS.length]);
 
   return <Layout>
     <section className="hero">
@@ -225,8 +235,35 @@ export function Home(){
     </section>
     <section className="stats"><div className="site-container stats-grid"><div><b>25+</b><span>Years of Excellence</span></div><div><b>500k+</b><span>Happy Customer</span></div><div><b>50+</b><span>Quality Products</span></div><div><b>750k+</b><span>Monthly Orders</span></div></div></section>
     <section className="section featured"><div className="site-container featured-inner"><div className="section-head"><h2>Featured Products</h2><Link to="/products">View All <ArrowRight size={15}/></Link></div><div className="products-grid four">{[PRODUCTS[2],PRODUCTS[0],PRODUCTS[11],PRODUCTS[6]].map(p=><ProductCard p={p} key={p.id}/>)}</div></div></section>
-    <section className="testimonials"><div className="site-container testimonial-inner"><div className="testimonial-heading"><div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div><div><button type="button" aria-label="Previous testimonial" onClick={()=>changeTestimonial(-1)}><ArrowLeft size={16}/></button><button type="button" aria-label="Next testimonial" onClick={()=>changeTestimonial(1)}><ArrowRight size={16}/></button></div></div><div className="testimonial-grid">{visibleTestimonials.map(name=><article key={name}><span className="quote" aria-hidden="true">”</span><p>Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna dictum, bibendum cursus velit sodales. Donec sed neque eget</p><div className="testimonial-author"><span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span><div><b>{name}</b><small>Customer</small></div><span className="stars" aria-label="5 out of 5 stars">★★★★★</span></div></article>)}</div></div></section>
-    <section className="contact-strip"><div className="site-container contact-grid"><div><MapPin/><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07,<br/>Sri Lanka</span></div><div><Phone/><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div><div className="newsletter-box"><Mail/><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div></div></section>
+    <section className="testimonials">
+      <div className="site-container testimonial-inner">
+        <div className="testimonial-heading">
+          <div><small>TESTIMONIAL</small><h2>What Our Customer Says</h2></div>
+          <div>
+            <button type="button" aria-label="Previous testimonial" onClick={()=>changeTestimonial(-1)}><ArrowLeft size={16}/></button>
+            <button type="button" aria-label="Next testimonial" onClick={()=>changeTestimonial(1)}><ArrowRight size={16}/></button>
+          </div>
+        </div>
+        <div className="testimonial-grid" key={testimonialIndex}>
+          {visibleTestimonials.map(({name,location,quote})=><article key={name}>
+            <span className="quote" aria-hidden="true">”</span>
+            <p>{quote}</p>
+            <div className="testimonial-author">
+              <span className="testimonial-avatar" aria-hidden="true">{name.split(" ").map(part=>part[0]).join("")}</span>
+              <div><b>{name}</b><small>{location}</small></div>
+              <span className="stars" aria-label="5 out of 5 stars">★★★★★</span>
+            </div>
+          </article>)}
+        </div>
+      </div>
+    </section>
+    <section className="contact-strip">
+      <div className="site-container contact-grid">
+        <div><span className="contact-icon"><MapPin aria-hidden="true"/></span><b>OUR LOCATION</b><span>456 Plantation Way, Colombo 07, Sri Lanka</span></div>
+        <div><span className="contact-icon"><Phone aria-hidden="true"/></span><b>CALL US 24/7</b><span><a href="tel:+94112345678">+94 (11) 234 5678</a></span></div>
+        <div className="newsletter-box"><span className="contact-icon"><Mail aria-hidden="true"/></span><b>SUBSCRIBE NEWSLETTER</b><form onSubmit={e=>{e.preventDefault();openNewsletter()}}><input type="email" placeholder="Your email address" required/><button>Subscribe</button></form></div>
+      </div>
+    </section>
   </Layout>
 }
 
